@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+{% include 'moderno/includes/category.html' %}
+<div class="products">
+    {% for product in products %}
+    <div class="card">
+
+        <div class="poster">
+            <a href="{% url 'like:like_add' product.id %}">
+                {% if product.product.all %}
+                <img id="active-like" src="{% static 'moderno/images/icon-heart.png' %}" title="{{ product.name }}">
+                {% else %}
+                <img src="{% static 'moderno/images/icon-heart.png' %}" title="{{ product.name }}">
+                {% endif %}
+            </a>
+
+
+            <img src="{{ product.image.url }}" title="{{ product.name }}">
+        </div>
+
+        <div class="details">
+            <a href="{{ product.get_absolute_url }}" title="Перейти">
+                <h3>{{ product.name }}</h3>
+            </a>
+            <div class="rating">
+
+                {% if product.avg_rating %}
+                    {% for i in "*****" %}
+                        {% if forloop.counter <= product.avg_rating %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                <span>{{ product.avg_rating }}/5</span>
+                {% else %}
+                    <span class="muted">Нет рейтинга </span>
+                {% endif %}
+
+
+
+
+            </div>
+
+            <div class="tags">
+                <span class="tag"><a href="{{product.category.get_absolute_url}}">{{ product.category }}</a></span>
+            </div>
+
+            <div class="cast">
+                <h4>Наши странички:</h4>
+                <ul>
+                    <li>
+                        <img src="" alt="Marco Andrews"
+                             title="Marco Andrews">
+                    </li>
+                    <li>
+                        <img src="https://i.postimg.cc/8P7X7r7r/cast-12.jpg" alt="Rebecca Floyd"
+                             title="Rebecca Floyd">
+                    </li>
+                    <li>
+                        <img src="https://i.postimg.cc/2SvHwRFk/cast-13.jpg" alt="Antonio Herrera"
+                             title="Antonio Herrera">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+<!--Навигация по сайту-->
+{% block navigation %}
+{% if page_obj.has_other_pages %}
+<nav class="list-pages">
+    <ul>
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">
+            <li class="page-num">&lt;</li>
+        </a>
+        {% endif %}
+
+        {% for page in paginator.page_range %}
+        {% if page_obj.number == page %}
+        <li class="page-num page-num-selected">{{ page }}</li>
+        {% elif page >= page_obj.number|add:-2 and page <= page_obj.number|add:2 %}
+        <a href="?page={{ page }}">
+            <li class="page-num">{{ page }}</li>
+        </a>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">
+            <li class="page-num">&gt;</li>
+        </a>
+        {% endif %}
+
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}
+<!--Конец навигации-->

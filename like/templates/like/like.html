@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="basket-block">
+    <div class="basket">
+        {% for like in likes %}
+        <div class="basket-product">
+            <div class="basket-cell">
+                <a href="{{ like.product.get_absolute_url }}">
+                    {% if like.product.image %}
+                    <img src="{{ like.product.image.url }}" title="{{ like.product.name }}">
+                    {% else %}
+                    <img src="{% static 'moderno/images/default.png' %}" title="{{ like.product.name }}">
+                    {% endif %}
+                </a>
+            </div>
+            <div class="basket-cell">
+                {{like.product.name}}
+            </div>
+            <div class="basket-cell">
+                Размер
+            </div>
+            <div class="basket-cell">
+                <p class="price">{{like.sum}} р.</p>
+            </div>
+            <div class="basket-cell">
+                <a href="{% url 'like:like_add' like.product.id %}">
+                    <button class="add-remove" type="submit">+</button>
+                </a>
+                {{like.quantity}} шт.
+
+            </div>
+
+        </div>
+        {% endfor %}
+        <hr>
+        <div class="final-result">
+            <p>Количество: <span class="total-info">{{quantity_likes}}</span> шт.</p>
+            <a href="">
+                <button type="submit">Перейти к оплате</button>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'moderno/includes/category.html' %}
+<div class="products block-product">
+    <div class="product">
+        {% if images %}
+            <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for image in images %}
+                    {% if forloop.first %}
+                    <div class="carousel-item active">
+                        <img src="{{ image.product.image.url }}" title="{{ image.product.name }}">
+                    </div>
+                    {% else %}
+                    <div class="carousel-item">
+                        <img src="{{ image.images.url }}" title="{{ image.product.name }}">
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        {% else %}
+        <img src="{{ product.image.url }}" title="{{ product.name }}">
+        {% endif %}
+
+        <p><b>{{product.name}}</b></p>
+        <div class="card-info">
+            <b>{{product.price}} руб.</b>
+            {% if product.quantity %}
+            <a href="{% url 'basket:basket_add' product.id %}">
+                <img class="icon" src="{% static 'moderno/images/icon-shop.png' %}" alt="">
+            </a>
+            {% else %}
+            <span class="muted">Нет в наличии</span>
+            {% endif %}
+        </div>
+
+        {% if product.descr %}
+        <div class="card-descr">
+            <p><b>Описание:</b></p>
+            {% autoescape off %}
+            {{ product.description }}
+            {% endautoescape %}
+        </div>
+        {% endif %}
+
+    </div>
+
+    <div class="review-block">
+        {% if user.is_authenticated %}
+        <div class="review-form">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+        {% else %}
+        <div class="review-form">
+            <form>
+                <p>Для отправки комментария вам <br>
+                    необходимо <a href="{% url 'users:login' %}">авторизоваться</a>.
+            </form>
+        </div>
+        {% endif %}
+        <p>Комментарии: ({{ product.review.all.count }})</p>
+        <div class="review">
+
+            {% for review in product.review.all %}
+            <div class="review">
+                <div class="review-info">
+                    <img class="icon" src="{{ review.user.image.url }}" title="{{ review.user }}">
+                    <span class="muted">
+                        {{review.user}}, {{review.create_date}}
+                        Оценка: {{review.rating}}
+                    </span><br>
+                </div>
+                {% autoescape off %}
+                <p>{{review.review}}</p>
+                {% endautoescape %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

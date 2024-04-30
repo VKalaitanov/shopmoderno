@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="basket-block">
+    <div class="basket">
+        {% for basket in baskets %}
+        <div class="basket-product">
+            <div class="basket-cell">
+                <a href="{{ basket.product.get_absolute_url }}">
+                    {% if basket.product.image %}
+                    <img src="{{ basket.product.image.url }}" title="{{ basket.product.name }}">
+                    {% else %}
+                    <img src="{% static 'moderno/images/default.png' %}" title="{{ basket.product.name }}">
+                    {% endif %}
+                </a>
+            </div>
+            <div class="basket-cell">
+                {{basket.product.name}}
+            </div>
+            <div class="basket-cell">
+                Размер
+            </div>
+            <div class="basket-cell">
+                <p class="price">{{basket.sum}} р.</p>
+            </div>
+            <div class="basket-cell">
+                <a href="{% url 'basket:basket_add' basket.product.id %}">
+                    <button class="add-remove" type="submit">+</button>
+                </a>
+                {{basket.quantity}} шт.
+                <a href="{% url 'basket:basket_remove' basket.product.id %}">
+                    <button class="add-remove" type="submit">-</button>
+                </a>
+            </div>
+            <div class="basket-cell">
+                <a href="{% url 'basket:basket_delete' basket.id %}">
+                    <button class="button-delete" type="submit">Удалить</button>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+        <hr>
+        <div class="final-result">
+            <p>Итого: <span class="total-info">{{total_sum}}</span> руб.</p>
+            <p>Количество: <span class="total-info">{{total_quantity}}</span> шт.</p>
+            <a href="">
+                <button type="submit">Перейти к оплате</button>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

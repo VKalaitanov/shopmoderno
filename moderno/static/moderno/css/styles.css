@@ -1,0 +1,701 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+html {height: 100%;}
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: sans-serif;
+    font-weight: 300;
+    background: url('../images/background.jpeg') no-repeat;  
+    background-attachment: fixed;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+button {cursor: pointer;}
+
+ul {list-style: none;}
+
+.header {
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.header-container {
+    margin: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+
+.auth a:hover, .about-contacts a:hover {
+    color:rgb(160, 160, 160)
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+.shop-icon {margin: 0 10px;}
+
+.shop-icon a {
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+.icon:hover {
+    position: relative;
+    top:2px
+}
+
+.search input {
+    border-radius: 5px;
+    width: 150px;
+    height: 20px;
+}
+
+main {
+    width: 100%; 
+    display: flex;
+    flex: 1 0 auto;
+}
+
+main h1, main hr {margin-left: 30px;}
+
+.moderno {
+    text-shadow: 5px 4px 4px black;
+    transition: all 1s ease;
+}
+
+.moderno:hover{
+    transform: scale(1.1);
+    text-shadow: 2px 2px 4px black;
+}
+
+/* ----------------------------Стили для футера-------------------------- */
+
+footer {
+    background-color: rgba(0, 0, 0, 0.4);
+    flex: 0 0 auto;
+    width: 100%;
+}
+
+.footer {
+    margin: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer > span {color:white}
+
+.about-contacts a {margin-left: 5px;}
+
+.social ul {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .item a {
+    width: 30px;
+    height: 30px;
+    background-color: #f0f9fe;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    border: 2px solid #f0f9fe;
+    overflow: hidden;
+  }
+
+  .item a::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+    z-index: 0;
+    scale: 1 0;
+    transform-origin: bottom;
+    transition: scale 0.3s linear;
+  }
+  
+  .item:hover a::before {scale: 1 1;}
+  
+  .social-icon {
+    font-size: 22px;
+    color: hsl(203, 92%, 8%);
+    transition: 0.5s ease;
+    z-index: 2;
+  }
+  
+  .item a:hover .social-icon {
+    color: #fff;
+    transform: rotateY(360deg);
+  }
+  
+  .item:nth-child(1) {
+    --bg-color: linear-gradient(to bottom right, #f9ce34, #ee2a7b, #6228d7);
+  }
+  .item:nth-child(2) {
+    --bg-color: #0077b5;
+  }
+  .item:nth-child(3) {
+    --bg-color: #000000;
+  }
+  .item:nth-child(4) {
+    --bg-color: #4ea7ec;
+  }
+
+/* -----------------Стили для системы авторизации, регистрации...------------------- */
+.form-block {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 30px 20px 0px;
+}
+
+.auth-form, .profile, .password {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+form h1 {
+    margin-bottom: 10px;
+    margin-left: 0px;
+    font-weight: 300;
+    text-align: center;
+}
+
+form hr {margin: 10px 0px;}
+
+.form-input, form p > select {
+    margin: 10px 0px;
+    padding-left: 3px;
+    font-size: 14px;
+    width: 20vw;
+    height: 20px;
+    border-radius: 5px;
+    border: none;
+}
+
+.form-label {
+    color: white;
+    display: inline-block;
+    min-width: 150px;
+    font-weight: 400;
+}
+
+form, .change-password {
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+form button {
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 10px;
+    border-radius: 5px;
+    background: white;
+    font-weight: 400;
+    font-size: 13px;
+    border: none;
+}
+
+form button:hover {
+    box-shadow: 1px 1px 10px white;
+}
+
+form button:active {
+    box-shadow: none;
+}
+
+form a:hover, .change-password a:hover {text-shadow: 1px 1px 5px white;}
+
+.form-image {
+text-align: center;
+width: 100%;
+height: auto;
+}
+
+.form-image > img {
+    width: 150px;
+    height: 150px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+form p > select {
+    width: 15%;
+    margin-right: 10px;
+}
+
+form p {white-space: nowrap;}
+
+#id_gender {width: 25%;}
+
+.form-error {
+    color: white;
+    white-space: nowrap;
+}
+
+
+.profile-block, .password-block {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.change-password {
+    overflow: auto;
+    padding: 0px;
+    width: 40%;
+    height: 25vh;
+    margin: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.change-password h1 {
+    font-weight: 300;
+    margin: 0px;
+    margin-bottom: 10px;
+}
+
+/* Конец стилей для системы авторизации */
+
+
+/* Стили для старицы с вещами */
+.cat-menu {
+    width: 20%;
+    margin: 20px 20px 20px 0px;
+    font-size: 20px;
+}
+
+.cat-menu ul li {
+    padding: 7px;
+    margin-top: 10px;
+    text-align: center;
+    cursor: pointer;
+    color: aliceblue;
+    box-shadow: 2px 3px 7px 3px rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    transition: all 1s ease;
+}
+
+.cat-menu ul li:hover {box-shadow: none;}
+
+.products {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin: 30px 0px;
+}
+
+
+.card-info {
+    display: flex;
+    justify-content: space-around;
+    /* font-weight: bold; */
+    margin-top: 20px;
+}
+
+.cat-all {
+    font-weight: 400;
+    font-size: 25px;
+}
+
+.product {
+    width: 500px;
+    height: 800px;
+    border-radius: 5px;
+    background: white;
+    text-align: center;
+}
+
+.product img {
+    width: 100%;
+    height: 500px;
+    border-radius: 5px;
+}
+
+.block-product {
+    justify-content: space-around;
+    margin-left: 30px;
+    white-space: nowrap;
+}
+
+.card-info img {
+    width: 20px;
+    height: 20px;
+}
+
+.card-descr {
+    height: 180px;
+    padding: 20px;
+    overflow: auto;
+    white-space: normal;
+    text-align: start;
+}
+
+.muted {
+    font-size: 15px;
+    color: silver;
+}
+
+/* ---------------------------Комментарии-------------------------- */
+.review-block {
+    width: 370px;
+    height: 800px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.review-block > p {
+    margin: 5px 0px;
+    font-weight: 400;
+}
+
+.review-form form > div {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    color: white;
+}
+
+.review-form  form > button {margin: 10px 0px 0px 0px;}
+
+.form-area {
+    height: 70px;
+    margin-top: 7px;
+    resize: none;
+    padding-left: 5px;
+    font-size: 16px;
+}
+
+.review {overflow: auto;}
+
+.review {
+    width: 100%;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    margin-bottom: 5px;
+    white-space: normal;
+    color: white;
+}
+
+.review-info {margin: 0px 5px;}
+
+.review > p {margin: 5px;}
+/* ---------------------------Конец комментариям-------------------------- */
+
+/* Конец стилей для старицы с вещами */
+
+
+/* Стили для пагинации страницы */
+
+.list-pages {
+	text-align: center;
+	margin: 0 0 20px 0;
+}
+
+.list-pages ul {
+	padding: 0; 
+	list-style: none;
+}
+
+.list-pages ul li {display: inline-block;}
+
+.list-pages a {
+	color: #000;
+	font-size: 24px;
+	text-decoration: none;
+}
+
+.list-pages .page-num, .page-num-selected {
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(3px);
+    color: white;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+    font-weight: 500;
+	border-radius: 50px;
+}
+
+.list-pages .page-num:hover {box-shadow: 2px 2px 4px black;}
+
+.list-pages .page-num-selected {
+	border: none;
+	color: #000;
+	font-size: 20px;
+}
+
+.list-pages .page-num-selected:hover {box-shadow: none;}
+/* Конец стилям для пагинации страницы */
+
+
+
+/* Стили для корзины */
+.basket-block {
+    width: 100%;
+    height: 80%;
+    padding: 30px;
+}
+
+.basket {
+    display: flex;
+    flex-direction: column;
+}
+
+.basket-block hr {margin: 10px 0;}
+
+.basket-product {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    border-radius: 10px;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+    height: 100px;
+    border: 1px solid silver;
+}
+
+.basket-cell {
+    flex: 1;
+    text-align: center;
+}
+
+.basket-cell img {
+    margin-top: 4px;
+    width: 100px;
+    height: 100px;
+    border: 0.5px solid silver;
+}
+
+.button-delete {
+    width: 70px;
+    height: 20px;
+    font-size: 14px;
+}
+
+.add-remove {
+    width: 30px;
+    height: 20px;
+    font-size: 16px;
+}
+
+.price {font-weight: bolder;}
+
+.final-result {
+    width: 100%;
+    font-size: 20px;
+}
+
+.final-result p {
+    margin-bottom: 10px;
+}
+
+.final-result button {
+    font-size: 16px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: white
+}
+
+.final-result button:hover {box-shadow: 2px 2px 5px 1px silver;}
+
+.total-info {font-weight: 400;}
+
+
+/* Конец стилей для корзины */
+
+
+
+.card {
+    position: relative;
+    width: 250px;
+    height: 350px;
+    background: #000;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+.poster {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.poster::before {
+    content: '';
+    position: absolute;
+    bottom: -45%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: .3s;
+}
+.card:hover .poster::before {bottom: 0;}
+
+.poster img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .3s;
+}
+.card:hover .poster img {
+    transform: scale(1.1);
+}
+
+.poster > a > img {
+    z-index: 3;
+    position: absolute;
+    left: 84%;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+}
+
+#active-like {filter: drop-shadow(1px 2px 3px red);}
+
+.details {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 92%;
+    height: auto;
+    padding: 4% 4%; 
+    background: #000a;
+    backdrop-filter: blur(16px) saturate(120%);
+    transition: .7s;
+    color: #fff;
+    z-index: 2;
+}
+
+.card:hover .details {bottom: 0;}
+
+
+.details h3 {
+    font-weight: 500;
+    font-size: 20px;
+    margin: 0px;
+    margin-bottom: 5px; 
+    text-align: center;
+    margin-bottom: 10px;
+    transition: all 1s ease;
+}
+
+.details h3:hover {transform: scale(1.1); color: #a8a8a8;}
+
+.details .rating {
+    position: relative;
+    display: flex;
+    gap: 2px;
+}
+
+.details .rating i {color: #e3c414;}
+
+.details .rating span {
+    margin-left: 5px;
+}
+
+.details .tags {
+    display: flex;
+    margin: 12px 0px;
+    font-size: 16px;
+}
+
+.details .tags span {
+    padding: 7px 12px;
+    color: #fff;
+    border: 1.5px solid rgba(255 255 255 / 0.4);
+    border-radius: 4px;
+    border-radius: 50px;
+    transition: all .4s ease;
+}
+
+.details .tags span:hover {
+    box-shadow: 1px 1px 6px .5px silver;
+}
+.details .tags span:active {
+    box-shadow: none;
+}
+
+.details .cast h4 {margin-bottom: 10px;}
+
+
+.details .cast ul {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    width: 100%;
+}
+
+.details .cast ul li {
+    list-style: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1.5px solid #fff;
+}
+
+.details .cast ul li img {
+    width: 100%;
+    height: 100%;
+}
+
+
+
