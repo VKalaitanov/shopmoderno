@@ -1,14 +1,10 @@
 from django.contrib.auth import logout, get_user_model
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView
-
 from django.http import HttpResponseRedirect
-
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
-from shopmoderno import settings
 from .forms import LoginUserForm, RegisterUserForm, ProfileUserForm, UserPasswordChangeForm
 
 

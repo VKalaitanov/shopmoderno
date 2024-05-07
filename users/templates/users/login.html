@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% include 'moderno/includes/category.html' %}
 <div class="form-block">
     <div class="auth-form">
         <form method="post" enctype="multipart/form-data">
             <h1>Авторизация:</h1>
             {% csrf_token %}
-            <input type="hidden" value="{% if request.REQUEST.next %}{{ request.REQUEST.next }}{% else %}{% if request.META.HTTP_REFERER %}{{ request.META.HTTP_REFERER }}{% else %}/{% endif %}{% endif %}" name="next" />
+            <input type="hidden"
+                   value="{% if request.REQUEST.next %}{{ request.REQUEST.next }}{% else %}{% if request.META.HTTP_REFERER %}{{ request.META.HTTP_REFERER }}{% else %}/{% endif %}{% endif %}"
+                   name="next"/>
             <div class="form-error">{{ form.non_field_errors }}</div>
             {% for f in form %}
             <label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}:</label>{{ f }}
@@ -16,7 +17,6 @@
             <div class="button">
                 <button type="submit">Отправить</button>
             </div>
-
             <hr>
             <a href="{% url 'users:password_reset' %}">Забыли пароль?</a>
         </form>

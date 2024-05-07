@@ -1,9 +1,25 @@
 * {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 html {height: 100%;}
+button {cursor: pointer;}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {color: #fff;}
+
+
 
 body {
     width: 100%;
@@ -17,18 +33,23 @@ body {
     flex-direction: column;
 }
 
-a {
-    text-decoration: none;
-    color: white;
-}
-
-button {cursor: pointer;}
-
-ul {list-style: none;}
-
+/* ----------------------Стили для шапки сайта--------------------- */
 .header {
     width: 100%;
+    min-height: 50px;
+    height: auto;
     flex: 0 0 auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    z-index: 5;
+    color: aliceblue;
+}
+
+.fixed {
+    position: sticky;
+    top: 0;
+    left: 0;
 }
 
 .header-container {
@@ -37,13 +58,6 @@ ul {list-style: none;}
     justify-content: space-between;
     align-items: center;
 }
-
-.header:hover {
-    background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-}
-
 
 .auth a:hover, .about-contacts a:hover {
     color:rgb(160, 160, 160)
@@ -67,18 +81,12 @@ ul {list-style: none;}
 }
 
 .search input {
+    font-size: 14px;
+    border: none;
     border-radius: 5px;
     width: 150px;
     height: 20px;
 }
-
-main {
-    width: 100%; 
-    display: flex;
-    flex: 1 0 auto;
-}
-
-main h1, main hr {margin-left: 30px;}
 
 .moderno {
     text-shadow: 5px 4px 4px black;
@@ -88,6 +96,13 @@ main h1, main hr {margin-left: 30px;}
 .moderno:hover{
     transform: scale(1.1);
     text-shadow: 2px 2px 4px black;
+}
+
+/* ----------------------------Стили для блока маин ----------------------*/
+.main {
+    padding: 30px; 
+    display: flex;
+    flex: 1 0 auto;
 }
 
 /* ----------------------------Стили для футера-------------------------- */
@@ -104,19 +119,25 @@ footer {
     justify-content: space-between;
     align-items: center;
 }
+.footer > div {
+    flex: 1;
+}
 
-footer > span {color:white}
+.footer div > span {color:white}
+
+.about-contacts {text-align: end;}
 
 .about-contacts a {margin-left: 5px;}
 
 .social ul {
     display: flex;
+    justify-content: center;
     gap: 10px;
   }
   
   .item a {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     background-color: #f0f9fe;
     border-radius: 50%;
     display: flex;
@@ -143,7 +164,7 @@ footer > span {color:white}
   .item:hover a::before {scale: 1 1;}
   
   .social-icon {
-    font-size: 22px;
+    font-size: 24px;
     color: hsl(203, 92%, 8%);
     transition: 0.5s ease;
     z-index: 2;
@@ -173,7 +194,6 @@ footer > span {color:white}
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 20px 30px 20px 0px;
 }
 
 .auth-form, .profile, .password {
@@ -192,7 +212,7 @@ form h1 {
 
 form hr {margin: 10px 0px;}
 
-.form-input, form p > select {
+.form-input, form p > select, #id_quantity {
     margin: 10px 0px;
     padding-left: 3px;
     font-size: 14px;
@@ -209,7 +229,7 @@ form hr {margin: 10px 0px;}
     font-weight: 400;
 }
 
-form, .change-password {
+form, .change-password, .review {
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
@@ -239,9 +259,9 @@ form button:active {
 form a:hover, .change-password a:hover {text-shadow: 1px 1px 5px white;}
 
 .form-image {
-text-align: center;
-width: 100%;
-height: auto;
+    text-align: center;
+    width: 100%;
+    height: auto;
 }
 
 .form-image > img {
@@ -251,7 +271,7 @@ height: auto;
     border-radius: 10px;
 }
 
-.button {
+.form-button {
     display: flex;
     justify-content: center;
     text-align: center;
@@ -264,7 +284,10 @@ form p > select {
     margin-right: 10px;
 }
 
-form p {white-space: nowrap;}
+form p {
+    margin: 0;
+    white-space: nowrap;
+}
 
 #id_gender {width: 25%;}
 
@@ -276,7 +299,6 @@ form p {white-space: nowrap;}
 
 .profile-block, .password-block {
     width: 100%;
-    margin: 20px 0;
 }
 
 .change-password {
@@ -297,83 +319,330 @@ form p {white-space: nowrap;}
     margin-bottom: 10px;
 }
 
-/* Конец стилей для системы авторизации */
+/* -----------------Стили для категорий---------------------------- */
 
-
-/* Стили для старицы с вещами */
-.cat-menu {
-    width: 20%;
-    margin: 20px 20px 20px 0px;
-    font-size: 20px;
+.menu {
+    min-height: 40px;
+    height: auto;
+    display: flex; 
+    flex-direction: column;
 }
 
-.cat-menu ul li {
-    padding: 7px;
-    margin-top: 10px;
-    text-align: center;
-    cursor: pointer;
-    color: aliceblue;
-    box-shadow: 2px 3px 7px 3px rgba(0, 0, 0, 0.6);
-    border-radius: 5px;
+.menu-ul ul {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+
+}
+
+.menu-block {padding: 0 30px;}
+
+.menu-ul ul a {
+    min-width: 125px;
+    width: auto;
+    height: 30px;
+    padding: 5px;
+    font-size: 18px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 65px 100px rgba(126, 126, 126, .5) inset;
+    border-radius: 50px;
     transition: all 1s ease;
 }
 
-.cat-menu ul li:hover {box-shadow: none;}
+.menu-ul ul a:hover {
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0);
+}
 
-.products {
-    width: 80%;
+.menu-all {
+    font-size: 20px;
+    font-weight: 500;
+    color: aliceblue;
+}
+
+.active-category {
+    box-shadow: none !important;
+    cursor: default;
+}
+
+.menu-button {
+    width: 100%;
+    height: 40px;
     display: flex;
     justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    margin: 30px 0px;
-}
+    align-items: end;
+    position: relative;
+    top: 20px;
+  }
 
-
-.card-info {
+  .menu-open {
+    width: 40px;
+    height: 40px;
     display: flex;
-    justify-content: space-around;
-    /* font-weight: bold; */
-    margin-top: 20px;
-}
-
-.cat-all {
-    font-weight: 400;
-    font-size: 25px;
-}
-
-.product {
-    width: 500px;
-    height: 800px;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg, rgba(3,0,50,1) 6%,
+        rgba(45,44,68,1) 32%, rgba(85,85,85,1) 56%,
+        rgba(134,134,134,1) 77%, rgba(187,187,187,1) 91%,
+        rgba(255,255,255,1) 100%);
     border-radius: 5px;
-    background: white;
-    text-align: center;
-}
+    cursor: pointer;
+  }
+  
+  .menu-open div {
+    width: 30px;
+    height: 30px;
+    position: relative;
+  }
 
-.product img {
+  .menu-open span {
+    background: #fff;
     width: 100%;
-    height: 500px;
+    height: 2px;
+    border-radius: 5px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.5s;
+  }
+
+  .menu-open .line-1 {
+    width: 50%;
+    transform: translate(-100%, -10px);
+  }
+
+  .menu-open .line-3 {
+    width: 50%;
+    transform: translate(0%, 10px);
+  }
+  
+  .menu-close .line-1 {
+    transform: translate(0, 0) rotate(-45deg);
+    transform-origin: 0 0;
+  }
+
+  .menu-close .line-3 {
+    transform: translate(-100%, 0px) rotate(-45deg);
+    transform-origin: 100% 0;
+  }
+
+  .menu-close .line-2 {transform: translate(-50%, -50%) rotate(45deg);}
+
+/* -------------------Стили для главной страницы------------------------ */
+.products-all {
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.card {
+    position: relative;
+    width: 270px;
+    height: 350px;
+    background: #000;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .4);
+}
+
+.poster {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.poster-price {
+    z-index: 6;
+    color: #fff;
+    position: absolute;
+    font-size: 20px;
+}
+/* .poster::before {
+    content: '';
+    position: absolute;
+    bottom: -45%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: .3s;
+} */
+/* .card:hover .poster::before {bottom: 0;} */
+
+.poster img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .4s linear;
+}
+.card:hover .poster img {transform: scale(1.1);}
+
+.poster > a > img {
+    z-index: 3;
+    position: absolute;
+    left: 84%;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    filter: drop-shadow(0px 0px 2px rgb(255, 255, 255));
+}
+
+#active-like {filter: drop-shadow(1px 2px 3px red);}
+
+.details {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    padding: 10px; 
+    background: #000a;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(2px) saturate(120%);
+    backdrop-filter: blur(2px) saturate(120%); 
+    transition: .5s ease;
+    color: #fff;
+    z-index: 2;
+}
+
+.card:hover .details {bottom: 0;}
+
+
+.details h3 {
+    font-weight: 600;
+    font-size: 20px;
+    margin: 0px;
+    margin-bottom: 5px; 
+    text-align: center;
+    margin-bottom: 10px;
+    transition: all 1s ease;
+}
+
+.details h3:hover {transform: scale(1.1); color: #a8a8a8;}
+
+.details .rating {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.details .rating i {color: #e3c414;}
+.details .rating span {margin-left: 5px;}
+
+.details .tags {
+    display: flex;
+    margin: 12px 0px;
+    font-size: 16px;
+}
+
+.details .tags span {
+    padding: 7px 12px;
+    color: #fff;
+    border: 1.5px solid rgba(255 255 255 / 0.4);
+    border-radius: 4px;
+    border-radius: 50px;
+    transition: all .4s ease;
+}
+
+.details .tags span:hover {box-shadow: 1px 1px 6px .5px silver;}
+.details .tags span:active {box-shadow: none;}
+
+.details .cast h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.details .cast ul {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+}
+
+.details .cast ul li {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1.5px solid #fff;
+}
+
+.details .cast ul li img {
+    width: 100%;
+    height: 100%;
+}
+
+/* ----------------------Карточка с  продуктом-------------------- */
+
+.product-review-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.product-block {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.product-img-block, .product-info {
+    width: 500px;
+    height: 550px;
+    border-radius: 5px;
+    /* border: 1px solid black; */
+    box-shadow: 1px 1px 10px 4px rgba(44, 44, 44, .5);
+    gap: 30px;
+
+}
+
+.product-img-block img {
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
     border-radius: 5px;
 }
 
-.block-product {
-    justify-content: space-around;
-    margin-left: 30px;
-    white-space: nowrap;
+.product-info {
+    padding: 10px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 }
 
-.card-info img {
-    width: 20px;
-    height: 20px;
+.product-info h2 {
+    text-align: center;
+    font-weight: 300;
 }
 
-.card-descr {
-    height: 180px;
-    padding: 20px;
+
+.product-description {
+    height: 250px;
     overflow: auto;
     white-space: normal;
     text-align: start;
 }
+
+.product-description p, .product-info p {font-size: 20px;}
 
 .muted {
     font-size: 15px;
@@ -382,12 +651,21 @@ form p {white-space: nowrap;}
 
 /* ---------------------------Комментарии-------------------------- */
 .review-block {
-    width: 370px;
-    height: 800px;
+    width: 100%;
     margin-right: 20px;
     display: flex;
     flex-direction: column;
 }
+
+.review-form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    gap: 10px;
+}
+
+.review-form form {width: 500px;}
 
 .review-block > p {
     margin: 5px 0px;
@@ -404,8 +682,8 @@ form p {white-space: nowrap;}
 .review-form  form > button {margin: 10px 0px 0px 0px;}
 
 .form-area {
-    height: 70px;
-    margin-top: 7px;
+    height: 150px;
+    margin: 10px 0;
     resize: none;
     padding-left: 5px;
     font-size: 16px;
@@ -413,12 +691,12 @@ form p {white-space: nowrap;}
 
 .review {overflow: auto;}
 
-.review {
+.review-all {
     width: 100%;
-    height: auto;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    margin-bottom: 5px;
+}
+
+.review {
+    margin-bottom: 10px;
     white-space: normal;
     color: white;
 }
@@ -426,12 +704,8 @@ form p {white-space: nowrap;}
 .review-info {margin: 0px 5px;}
 
 .review > p {margin: 5px;}
-/* ---------------------------Конец комментариям-------------------------- */
 
-/* Конец стилей для старицы с вещами */
-
-
-/* Стили для пагинации страницы */
+/*----------------------------Пагинации страницы--------------------------- */
 
 .list-pages {
 	text-align: center;
@@ -472,25 +746,23 @@ form p {white-space: nowrap;}
 }
 
 .list-pages .page-num-selected:hover {box-shadow: none;}
-/* Конец стилям для пагинации страницы */
 
 
-
-/* Стили для корзины */
-.basket-block {
+/* --------------------------------Стили для корзины----------------------------- */
+.cart-block {
     width: 100%;
     height: 80%;
     padding: 30px;
 }
 
-.basket {
+.cart {
     display: flex;
     flex-direction: column;
 }
 
-.basket-block hr {margin: 10px 0;}
+.cart-block hr {margin: 10px 0;}
 
-.basket-product {
+.cart-product {
     display: flex;
     justify-content: space-between;
     background-color: rgba(0, 0, 0, 0.7);
@@ -504,12 +776,12 @@ form p {white-space: nowrap;}
     border: 1px solid silver;
 }
 
-.basket-cell {
+.cart-cell {
     flex: 1;
     text-align: center;
 }
 
-.basket-cell img {
+.cart-cell img {
     margin-top: 4px;
     width: 100px;
     height: 100px;
@@ -552,150 +824,5 @@ form p {white-space: nowrap;}
 .total-info {font-weight: 400;}
 
 
-/* Конец стилей для корзины */
-
-
-
-.card {
-    position: relative;
-    width: 250px;
-    height: 350px;
-    background: #000;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-}
-.poster {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-.poster::before {
-    content: '';
-    position: absolute;
-    bottom: -45%;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    transition: .3s;
-}
-.card:hover .poster::before {bottom: 0;}
-
-.poster img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: .3s;
-}
-.card:hover .poster img {
-    transform: scale(1.1);
-}
-
-.poster > a > img {
-    z-index: 3;
-    position: absolute;
-    left: 84%;
-    top: 10px;
-    width: 30px;
-    height: 30px;
-}
-
-#active-like {filter: drop-shadow(1px 2px 3px red);}
-
-.details {
-    position: absolute;
-    bottom: -100%;
-    left: 0;
-    width: 92%;
-    height: auto;
-    padding: 4% 4%; 
-    background: #000a;
-    backdrop-filter: blur(16px) saturate(120%);
-    transition: .7s;
-    color: #fff;
-    z-index: 2;
-}
-
-.card:hover .details {bottom: 0;}
-
-
-.details h3 {
-    font-weight: 500;
-    font-size: 20px;
-    margin: 0px;
-    margin-bottom: 5px; 
-    text-align: center;
-    margin-bottom: 10px;
-    transition: all 1s ease;
-}
-
-.details h3:hover {transform: scale(1.1); color: #a8a8a8;}
-
-.details .rating {
-    position: relative;
-    display: flex;
-    gap: 2px;
-}
-
-.details .rating i {color: #e3c414;}
-
-.details .rating span {
-    margin-left: 5px;
-}
-
-.details .tags {
-    display: flex;
-    margin: 12px 0px;
-    font-size: 16px;
-}
-
-.details .tags span {
-    padding: 7px 12px;
-    color: #fff;
-    border: 1.5px solid rgba(255 255 255 / 0.4);
-    border-radius: 4px;
-    border-radius: 50px;
-    transition: all .4s ease;
-}
-
-.details .tags span:hover {
-    box-shadow: 1px 1px 6px .5px silver;
-}
-.details .tags span:active {
-    box-shadow: none;
-}
-
-.details .cast h4 {margin-bottom: 10px;}
-
-
-.details .cast ul {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.625rem;
-    width: 100%;
-}
-
-.details .cast ul li {
-    list-style: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 1.5px solid #fff;
-}
-
-.details .cast ul li img {
-    width: 100%;
-    height: 100%;
-}
-
-
+/* --------------------------jgvfhfh----------------------------- */
 

@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from shopmoderno import settings
-from .models import Product, Category, Review, ProductImage
+from .models import Product, Category, Review, ProductImage, ProductSize, Size
 
 
 class ProductImageAdmin(admin.StackedInline):
@@ -11,9 +10,15 @@ class ProductImageAdmin(admin.StackedInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    # fields = (
+    #     'name', 'slug', 'image', 'description', 'price',
+    #     'discount_price', 'available', 'category'
+    # )
+
     list_display = ('name', 'image_show', 'available', 'price',)
     list_filter = ('available', 'time_create', 'time_update')
     list_editable = ('available',)
+    # readonly_fields = ('slug', )
     prepopulated_fields = {'slug': ('name',)}
     inlines = (ProductImageAdmin,)
 
@@ -38,3 +43,7 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ('user', 'product', 'rating', 'create_date')
     list_display_links = ('user', 'product')
     # readonly_fields = ('user', 'product_review', 'rating', 'review')
+
+
+admin.site.register(ProductSize)
+admin.site.register(Size)

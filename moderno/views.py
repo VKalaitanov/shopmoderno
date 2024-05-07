@@ -3,12 +3,12 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 
+from cart.forms import AddToCartForm
 from .forms import ReviewForm
 from .models import Product, ProductImage
 from .utils import DataMixin
 
 
-# Create your views here.
 class HomePage(DataMixin, ListView):
     template_name = 'moderno/index.html'
     context_object_name = 'products'
@@ -19,14 +19,14 @@ class HomePage(DataMixin, ListView):
 
 
 class ProductCategory(DataMixin, ListView):
-    template_name = 'moderno/index.html'
     context_object_name = 'products'
     allow_empty = False
+    template_name = 'moderno/index.html'
 
     def get_queryset(self):
         category_slug = self.kwargs['category_slug']
         category = Product.published.filter(category__slug=category_slug)
-        return category.select_related("category")
+        return category.select_related('category')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -35,7 +35,6 @@ class ProductCategory(DataMixin, ListView):
         mixin_context = self.get_mixin_context(
             context,
             title='Категория: ' + category.name,
-            category_selected=category.pk,
         )
 
         return mixin_context
@@ -46,6 +45,7 @@ class ShowProduct(DataMixin, FormMixin, DetailView):
     slug_url_kwarg = 'product_slug'
     context_object_name = 'product'
     form_class = ReviewForm
+    cart_product_form = AddToCartForm()
 
     def get_success_url(self, **kwargs):
         product_slug = self.get_object().slug
@@ -74,7 +74,12 @@ class ShowProduct(DataMixin, FormMixin, DetailView):
             .select_related('product', )
         )
 
-        return self.get_mixin_context(context, title=context['product'].name, images=images)
+        return self.get_mixin_context(
+            context,
+            title=context['product'].name,
+            images=images,
+            cart_product_form=self.cart_product_form
+        )
 
     def get_object(self, queryset=None):
         slug = self.kwargs[self.slug_url_kwarg]

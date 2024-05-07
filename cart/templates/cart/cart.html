@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="cart-block">
+    <div class="cart">
+        {% for item in cart %}
+        {% with item.product as product %}
+        <div class="cart-product">
+            <div class="cart-cell">
+                <a href="{{ product.get_absolute_url }}">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" title="{{ product.name }}">
+                    {% else %}
+                    <img src="{% static 'moderno/images/default.png' %}" title="{{ product.name }}">
+                    {% endif %}
+                </a>
+            </div>
+            <div class="cart-cell">
+                {{ product.name }}
+            </div>
+            <div class="cart-cell">
+                {{ item.size }}
+            </div>
+            <div class="cart-cell">
+                <p class="price">{{ item.sum }} р.</p>
+            </div>
+            <div class="cart-cell">
+                {{ item.quantity }} шт.
+                {% comment %}
+                <a href="{% url 'cart:cart_add' product.id %}">
+                    <button class="add-remove" type="submit">+</button>
+                </a>
+
+                <a href="{% url 'cart:cart_remove' product.id %}">
+                    <button class="add-remove" type="submit">-</button>
+                </a>
+                {% endcomment %}
+            </div>
+            <div class="cart-cell">
+                <a href="{% url 'cart:cart_delete' item.id %}">
+                    <button class="button-delete" type="submit">Удалить</button>
+                </a>
+            </div>
+        </div>
+        {% endwith %}
+        {% endfor %}
+        <hr>
+        <div class="final-result">
+            <p>Итого: <span class="total-info">{{ total_sum }}</span> руб.</p>
+            <p>Количество: <span class="total-info">{{ cart_items_quantity }}</span> шт.</p>
+            <a href="">
+                <button type="submit">Перейти к оплате</button>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

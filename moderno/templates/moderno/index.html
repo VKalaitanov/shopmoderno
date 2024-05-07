@@ -3,21 +3,21 @@
 
 
 {% block content %}
-{% include 'moderno/includes/category.html' %}
-<div class="products">
+<div class="products-all">
     {% for product in products %}
     <div class="card">
-
+        <div class="poster-price">
+            {{ product.discount_price }}
+            <span class="text-danger bg-success">{{ product.discount }}%</span>
+        </div>
         <div class="poster">
             <a href="{% url 'like:like_add' product.id %}">
-                {% if product.product.all %}
+                {% if like %}
                 <img id="active-like" src="{% static 'moderno/images/icon-heart.png' %}" title="{{ product.name }}">
                 {% else %}
                 <img src="{% static 'moderno/images/icon-heart.png' %}" title="{{ product.name }}">
                 {% endif %}
             </a>
-
-
             <img src="{{ product.image.url }}" title="{{ product.name }}">
         </div>
 
@@ -26,27 +26,22 @@
                 <h3>{{ product.name }}</h3>
             </a>
             <div class="rating">
-
                 {% if product.avg_rating %}
-                    {% for i in "*****" %}
-                        {% if forloop.counter <= product.avg_rating %}
-                            <i class="fas fa-star"></i>
-                        {% else %}
-                            <i class="far fa-star"></i>
-                        {% endif %}
-                    {% endfor %}
+                {% for i in "*****" %}
+                {% if forloop.counter <= product.avg_rating %}
+                <i class="fas fa-star"></i>
+                {% else %}
+                <i class="far fa-star"></i>
+                {% endif %}
+                {% endfor %}
                 <span>{{ product.avg_rating }}/5</span>
                 {% else %}
-                    <span class="muted">Нет рейтинга </span>
+                <span class="muted">Нет рейтинга </span>
                 {% endif %}
-
-
-
-
             </div>
 
             <div class="tags">
-                <span class="tag"><a href="{{product.category.get_absolute_url}}">{{ product.category }}</a></span>
+                <span class="tag"><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></span>
             </div>
 
             <div class="cast">

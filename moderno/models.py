@@ -4,8 +4,6 @@ from django.db import models
 from django.db.models import Avg
 from django.urls import reverse
 
-from users.models import User
-
 
 class PublishedManager(models.Manager):
     """Менеджер опубликованных записей"""
@@ -43,8 +41,9 @@ class Product(models.Model):
     description = models.TextField('Описание', blank=True)
     time_create = models.DateTimeField('Время создания', auto_now_add=True)
     time_update = models.DateTimeField('Время изменения', auto_now=True)
-    price = models.DecimalField('Цена', max_digits=15, decimal_places=2)
-    quantity = models.IntegerField('Количество', default=0)
+    price = models.FloatField('Цена', default=0)
+    discount_price = models.FloatField('Цена со скидкой', blank=True, default=0, null=True)
+    # sizes = models.ManyToManyField('ProductSize', related_name='size', blank=True)
     available = models.BooleanField('Наличие', default=True)
 
     category = models.ForeignKey(
@@ -75,11 +74,39 @@ class Product(models.Model):
         #     print(self.avg_rating)
         #     return self.avg_rating
 
-        avg_rating = self.review.select_related('product').aggregate(Avg('rating'))
-        print(avg_rating['rating__avg'])
+        avg_rating = self.review.select_related('product', 'user').aggregate(Avg('rating'))
         if avg_rating['rating__avg'] is not None:
             return round(avg_rating['rating__avg'], 1)
-        return 'Нет рейтинга'
+        return None
+
+    def discount(self):
+        if self.discount_price:
+            return round((self.price - self.discount_price) / self.price * 100, 2)
+        return None
+
+
+class Size(models.Model):
+    size = models.CharField('Размер', max_length=4)
+
+    class Meta:
+        verbose_name = 'Размер'
+        verbose_name_plural = 'Размеры'
+
+    def __str__(self):
+        return self.size
+
+
+class ProductSize(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
+    size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name='sizes')
+    quantity = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        verbose_name = 'Размер для товара'
+        verbose_name_plural = 'Размеры для товаров'
+
+    def __str__(self):
+        return f'Товар: {self.product}, размер: {self.size}, количество: {self.quantity}'
 
 
 class ProductImage(models.Model):

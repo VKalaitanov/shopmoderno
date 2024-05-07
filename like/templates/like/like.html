@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+{% comment %}
 <div class="basket-block">
     <div class="basket">
         {% for like in likes %}
@@ -42,5 +43,69 @@
             </a>
         </div>
     </div>
+</div>
+{% endcomment %}
+
+<div class="products-all">
+    {% for like in likes %}
+    <div class="card">
+        <div class="poster-price">
+            {{ like.product.discount_price }}
+            <span class="text-danger bg-success">{{ like.product.discount }}%</span>
+        </div>
+        <div class="poster">
+            <a href="{% url 'like:like_add' like.product.id %}">
+                {% if like.user %}
+                <img id="active-like" src="{% static 'moderno/images/icon-heart.png' %}" title="{{ like.product.name }}">
+                {% else %}
+                <img src="{% static 'moderno/images/icon-heart.png' %}" title="{{ like.product.name }}">
+                {% endif %}
+            </a>
+            <img src="{{ like.product.image.url }}" title="{{ like.product.name }}">
+        </div>
+
+        <div class="details">
+            <a href="{{ like.product.get_absolute_url }}" title="Перейти">
+                <h3>{{ like.product.name }}</h3>
+            </a>
+            <div class="rating">
+                {% if like.product.avg_rating %}
+                {% for i in "*****" %}
+                {% if forloop.counter <= like.product.avg_rating %}
+                <i class="fas fa-star"></i>
+                {% else %}
+                <i class="far fa-star"></i>
+                {% endif %}
+                {% endfor %}
+                <span>{{ like.product.avg_rating }}/5</span>
+                {% else %}
+                <span class="muted">Нет рейтинга </span>
+                {% endif %}
+            </div>
+
+            <div class="tags">
+                <span class="tag"><a href="{{ like.product.category.get_absolute_url }}">{{ like.product.category }}</a></span>
+            </div>
+
+            <div class="cast">
+                <h4>Наши странички:</h4>
+                <ul>
+                    <li>
+                        <img src="" alt="Marco Andrews"
+                             title="Marco Andrews">
+                    </li>
+                    <li>
+                        <img src="https://i.postimg.cc/8P7X7r7r/cast-12.jpg" alt="Rebecca Floyd"
+                             title="Rebecca Floyd">
+                    </li>
+                    <li>
+                        <img src="https://i.postimg.cc/2SvHwRFk/cast-13.jpg" alt="Antonio Herrera"
+                             title="Antonio Herrera">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

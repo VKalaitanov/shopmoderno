@@ -1,12 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.views.generic import ListView
 
 from moderno.models import Product
-from .models import Like
 from moderno.utils import DataMixin
+from .models import Like
 
 
 class LikeView(LoginRequiredMixin, DataMixin, ListView):
