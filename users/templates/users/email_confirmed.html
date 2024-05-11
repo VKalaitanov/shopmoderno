@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="change-password-block">
+    <div class="change-password">
+        <h4 class="text-success">Электронная почта подтверждена</h4>
+        <p>Ваш адрес электронной почты успешно подтвержден. Спасибо за регистрацию!</p>
+        <p><a class="text-white" href="{% url 'users:login' %}">Войти в личный кабинет</a></p>
+    </div>
+</div>
+{% endblock %}

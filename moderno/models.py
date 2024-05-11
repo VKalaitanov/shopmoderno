@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.db import models
 from django.db.models import Avg
@@ -43,7 +44,6 @@ class Product(models.Model):
     time_update = models.DateTimeField('Время изменения', auto_now=True)
     price = models.FloatField('Цена', default=0)
     discount_price = models.FloatField('Цена со скидкой', blank=True, default=0, null=True)
-    # sizes = models.ManyToManyField('ProductSize', related_name='size', blank=True)
     available = models.BooleanField('Наличие', default=True)
 
     category = models.ForeignKey(
@@ -70,34 +70,41 @@ class Product(models.Model):
         return reverse('moderno:product', kwargs={'product_slug': self.slug})
 
     def avg_rating(self):
-        # if hasattr(self, 'avg_rating'):
-        #     print(self.avg_rating)
-        #     return self.avg_rating
+        cache_key = f"product_avg_rating_{self.id}"
+        cached_avg_rating = cache.get(cache_key)
+        if cached_avg_rating is not None:
+            return cached_avg_rating
 
-        avg_rating = self.review.select_related('product', 'user').aggregate(Avg('rating'))
-        if avg_rating['rating__avg'] is not None:
-            return round(avg_rating['rating__avg'], 1)
+        avg_rating = self.reviews.select_related('product', 'user') \
+            .aggregate(Avg('rating'))['rating__avg']
+
+        if avg_rating is not None:
+            rounded_avg_rating = round(avg_rating, 1)
+            cache.set(cache_key, rounded_avg_rating, timeout=20)
+            return rounded_avg_rating
+
         return None
+
 
     def discount(self):
         if self.discount_price:
-            return round((self.price - self.discount_price) / self.price * 100, 2)
+            return round((self.price - self.discount_price) / self.price * 100, 1)
         return None
 
 
 class Size(models.Model):
-    size = models.CharField('Размер', max_length=4)
+    name = models.CharField('Размер', max_length=4)
 
     class Meta:
         verbose_name = 'Размер'
         verbose_name_plural = 'Размеры'
 
     def __str__(self):
-        return self.size
+        return self.name
 
 
 class ProductSize(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='sizes')
     size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name='sizes')
     quantity = models.PositiveIntegerField(default=1)
 
@@ -106,7 +113,7 @@ class ProductSize(models.Model):
         verbose_name_plural = 'Размеры для товаров'
 
     def __str__(self):
-        return f'Товар: {self.product}, размер: {self.size}, количество: {self.quantity}'
+        return f'{self.size.name}'
 
 
 class ProductImage(models.Model):
@@ -149,12 +156,12 @@ class Review(models.Model):
 
     user = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE,
-        related_name='review', verbose_name='Пользователь'
+        related_name='reviews', verbose_name='Пользователь'
     )
 
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE,
-        related_name='review', verbose_name='Товар'
+        related_name='reviews', verbose_name='Товар'
     )
 
     review = models.TextField('Отзыв', max_length=1000, blank=True, null=True)

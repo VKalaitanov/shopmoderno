@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import ListView
 
 from moderno.models import Product
@@ -23,14 +24,23 @@ class LikeView(LoginRequiredMixin, DataMixin, ListView):
 
 @login_required
 def like_add(request, product_id):
-    user = request.user
-    current_page = request.META.get('HTTP_REFERER')
-    product = Product.published.get(id=product_id)
-    likes = Like.objects.filter(user=user, product=product)
+    # user = request.user
+    # current_page = request.META.get('HTTP_REFERER')
+    # product = Product.published.get(id=product_id)
+    # likes = Like.objects.filter(user=user, product=product)
+    #
+    # if not likes.exists():
+    #     Like.objects.create(user=user, product=product, like=True)
+    #     return HttpResponseRedirect(current_page)
+    # like = likes.first()
+    # like.delete()
+    product = get_object_or_404(Product, id=product_id)
+    like, created = Like.objects.get_or_create(user=request.user, product=product)
 
-    if not likes.exists():
-        Like.objects.create(user=user, product=product, like=1)
-        return HttpResponseRedirect(current_page)
-    like = likes.first()
-    like.delete()
-    return HttpResponseRedirect(current_page)
+    if not created:
+        like.delete()
+
+    return redirect(request.META.get('HTTP_REFERER'))
+    # return HttpResponseRedirect(current_page)
+
+

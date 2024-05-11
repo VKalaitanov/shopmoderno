@@ -2,8 +2,6 @@
 {% load static %}
 
 {% block content %}
-
-
 <div class="product-review-block">
     <div class="product-block">
         <div class="product-img-block">
@@ -41,7 +39,12 @@
 
         <div class="product-info">
             <h2><b>{{product.name}}</b></h2>
-            <p>Цена: <b class="text-danger">{{product.price}} руб.</b></p>
+            <div class="product-info-price">
+                <span>Цена: <b class="text-primary">{{product.price}}</b></span>
+                <span>Цена со скидкой: <b class="text-success">{{product.discount_price}}</b></span>
+                <span>Скидка: <b class="text-danger">{{product.discount}}%</b></span>
+            </div>
+
             <div class="product-description">
                 <p><b>Описание:</b></p>
                 {% autoescape off %}
@@ -50,24 +53,21 @@
             </div>
 
 
-            <div class="cart_form">
+            <div class="cart-form">
                 <form action="{% url 'cart:cart_add' product.id %}" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="next" value="{{ next }}">
-                    <div class="form-error">{{ cart_product_form.non_field_errors }}</div>
-                    {% for f in cart_product_form %}
-                    <label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}:</label>{{ f }}
-                    <div class="form-error">{{ f.errors }}</div>
-                    {% endfor %}
+                    {{ cart_product_form}}
                     <div class="button">
                         <button type="submit">Добавить в корзину</button>
                     </div>
+                    {% if error_message %}<div class="error_message text-danger">{{ error_message }}</div>{% endif %}
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="review-block">
+    <div class="review-block" id="review-block">
         {% if user.is_authenticated %}
         <div class="review-form">
             <form action="" method="post">
@@ -84,24 +84,25 @@
             </form>
         </div>
         {% endif %}
-        <p>Отзывы: ({{ product.review.all.count }})</p>
-        <div class="review-all">
+        <p class="reviews-count">Отзывы: ({{ product.reviews.all.count }})</p>
+        <div class="reviews-all">
 
-            {% for review in product.review.all %}
+            {% for review in reviews %}
             <div class="review">
                 <div class="review-info">
                     <img class="icon" src="{{ review.user.image.url }}" title="{{ review.user }}">
                     <span class="muted">
-                        {{review.user.username}}, {{review.create_date}}
-                        Оценка: {{review.rating}}
+                        {{ review.user.username }}, {{ review.create_date }}
+                        Оценка: {{ review.rating }}
                     </span><br>
                 </div>
                 {% autoescape off %}
-                <p>{{review.review}}</p>
+                <p>{{ review.review }}</p>
                 {% endautoescape %}
             </div>
             {% endfor %}
         </div>
     </div>
+    <button id="show-more-btn" class="show-more-btn">Показать еще</button>
 </div>
 {% endblock %}

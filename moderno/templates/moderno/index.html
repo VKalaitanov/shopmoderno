@@ -6,13 +6,12 @@
 <div class="products-all">
     {% for product in products %}
     <div class="card">
-        <div class="poster-price">
-            {{ product.discount_price }}
-            <span class="text-danger bg-success">{{ product.discount }}%</span>
+        <div class="product-discount">
+            <span>{{ product.discount }}%</span>
         </div>
         <div class="poster">
-            <a href="{% url 'like:like_add' product.id %}">
-                {% if like %}
+            <a href="{% url 'like:like_add' product.id %}" class="like-button">
+                {% if product.likes.all %}
                 <img id="active-like" src="{% static 'moderno/images/icon-heart.png' %}" title="{{ product.name }}">
                 {% else %}
                 <img src="{% static 'moderno/images/icon-heart.png' %}" title="{{ product.name }}">
@@ -38,6 +37,10 @@
                 {% else %}
                 <span class="muted">Нет рейтинга </span>
                 {% endif %}
+            </div>
+            <div class="product-price">
+                <span>{{ product.discount_price }}</span>
+                <s class="muted">{{ product.price}}</s>
             </div>
 
             <div class="tags">

@@ -10,7 +10,7 @@ SECRET_KEY = 'django-insecure-0m)9)s92=mg!j&_qdcx8)c*!o$bbfj(^+7%_mh5-)ia63j)ev!
 DEBUG = True
 # CART_SESSION_ID = 'cart'
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["127.0.0.1", 'localhost', 'shopmoderno.ru']
 INTERNAL_IPS = ["127.0.0.1"]
 
 # Application definition
@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.sites',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -37,6 +38,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'users.middleware.RedirectIfAuthenticatedMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
@@ -121,19 +123,35 @@ LOGIN_REDIRECT_URL = 'moderno:home'
 LOGOUT_REDIRECT_URL = 'users:login'
 LOGIN_URL = 'users:login'
 
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1']
 
-AUTHENTICATION_BACKENDS = [
-    # 'social_core.backends.github.GithubOAuth2',
-    # 'social_core.backends.vk.VKOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-    'users.authentication.EmailAuthBackend',
-]
-
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-AUTH_USER_MODEL = 'users.User'
+# AUTHENTICATION_BACKENDS = [
+#     # 'social_core.backends.github.GithubOAuth2',
+#     # 'social_core.backends.vk.VKOAuth2',
+#     'django.contrib.auth.backends.ModelBackend',
+#     'users.authentication.EmailAuthBackend',
+# ]
 
 # DEFAULT_USER_IMAGE = MEDIA_URL + 'users/default.png'
 # DEFAULT_PRODUCT_IMAGE = MEDIA_URL + 'images/default.jpg'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = 'kalaytanov93@gmail.com'
+EMAIL_HOST_PASSWORD = 'iylgsbrhxnuarrxr'
+
+# EMAIL_HOST = "smtp.yandex.ru"
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = "kalaitanov93@yandex.ru"
+# EMAIL_HOST_PASSWORD = "bnufhkwcripaunvu"
+# EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
+
+AUTH_USER_MODEL = 'users.User'
+SITE_ID = 1

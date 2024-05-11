@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="form-block">
-    <div class="auth-form">
+<div class="user-form-block">
+    <div class="user-form">
         <form method="post" enctype="multipart/form-data">
-            <h1>Регистрация:</h1>
+            <h1>{{ title }}</h1>
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
             <div class="form-error">{{ form.non_field_errors }}</div>
             {% for f in form %}
-            <label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}:</label>{{ f }}
+            <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}:</label>{{ f }}</p>
             <div class="form-error">{{ f.errors }}</div>
             {% endfor %}
             <div class="button">
-                <button type="submit">Отправить</button>
+                <button type="submit">Регистрация</button>
             </div>
             <hr>
         </form>

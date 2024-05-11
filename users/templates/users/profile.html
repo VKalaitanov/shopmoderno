@@ -2,12 +2,12 @@
 
 
 {% block content %}
-<div class="form-block profile-block">
+<div class="user-form-block">
     <div class="profile">
         <form method="post" enctype="multipart/form-data">
-            <h1>Ваш профиль:</h1>
+            <h1>Ваш профиль</h1>
             {% csrf_token %}
-            <div class="form-image">
+            <div class="profile-image">
                 <img src="{{ user.image.url }}">
             </div>
             <div class="form-error">{{ form.non_field_errors }}</div>
@@ -18,11 +18,11 @@
             <div class="form-button">
                 <button type="submit">Сохранить</button>
             </div>
-
             <hr>
-            <a href="{% url 'users:password_change' %}">Сменить пароль</a>
+            <div class="link-form">
+                <a href="{% url 'users:password_change' %}">Сменить пароль</a>
+            </div>
         </form>
     </div>
 </div>
-
 {% endblock %}

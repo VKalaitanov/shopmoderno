@@ -86,6 +86,7 @@
 <!--Конец шапки профиля-->
 
 <main class="main container-fluid">
+    {{ message }}
     {% block content%}
 
     {% endblock %}
@@ -136,11 +137,7 @@
         crossorigin="anonymous">
 </script>
 
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="{% static 'moderno/js/index.js' %}"></script>
-
-
 </body>
 </html>

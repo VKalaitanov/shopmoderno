@@ -15,10 +15,97 @@ ul {
 a {
     text-decoration: none;
     color: white;
+    cursor: pointer;
 }
 
 a:hover {color: #fff;}
 
+form {
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+form h1 {
+    margin-bottom: 10px;
+    margin-left: 0px;
+    font-weight: 300;
+    text-align: center;
+    color: #000;
+}
+
+form p {
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 18px;
+    flex-wrap: nowrap;
+}
+
+form p label {
+    flex: 1;
+    text-align: start;
+    margin: 0 !important;
+    color: #fff;
+    white-space: nowrap;
+}
+
+form p input {
+    flex: 2;
+    border: none;
+    border-radius: 3px;
+    border: none;
+    text-align: center;
+}
+
+form p select {
+    min-height: 220px;
+    width: 321px;
+}
+
+form hr {margin: 10px 0px;}
+
+form button {
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 10px;
+    border-radius: 5px;
+    background: white;
+    font-weight: 400;
+    font-size: 13px;
+    border: none;
+}
+
+form button:hover {
+    box-shadow: 1px 1px 10px white;
+}
+
+form button:active {
+    box-shadow: none;
+}
+
+form .link-form {
+    text-align: start;
+}
+
+form a:hover, .change-password a:hover {text-shadow: 1px 1px 5px white;}
+
+.form-error {
+    color: rgb(255, 0, 0);
+    white-space: nowrap;
+    font-size: 18px;
+
+}
+
+.form-button {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 10px;
+}
 
 
 body {
@@ -66,6 +153,7 @@ body {
 .icon {
     width: 20px;
     height: 20px;
+    margin: 0;
 }
 
 .shop-icon {margin: 0 10px;}
@@ -73,6 +161,11 @@ body {
 .shop-icon a {
     margin-left: 10px;
     font-size: 16px;
+}
+
+.shop-icon img {
+    position: relative;
+    top: -2px;
 }
 
 .icon:hover {
@@ -189,133 +282,121 @@ footer {
   }
 
 /* -----------------Стили для системы авторизации, регистрации...------------------- */
-.form-block {
-    width: 80%;
+
+.user-form-block {
+    width: 100%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.auth-form, .profile, .password {
+.profile {
+    min-width: 350px;
+    width: 500px;
     height: auto;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-}
-
-form h1 {
-    margin-bottom: 10px;
-    margin-left: 0px;
-    font-weight: 300;
+    border-radius: 5px;
     text-align: center;
+
 }
 
-form hr {margin: 10px 0px;}
+.profile form, .user-form form {border: 1px solid #000;}
 
-.form-input, form p > select, #id_quantity {
-    margin: 10px 0px;
-    padding-left: 3px;
-    font-size: 14px;
-    width: 20vw;
-    height: 20px;
-    border-radius: 5px;
-    border: none;
-}
-
-.form-label {
-    color: white;
-    display: inline-block;
-    min-width: 150px;
-    font-weight: 400;
-}
-
-form, .change-password, .review {
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-}
-
-form button {
-    padding: 5px 10px;
-    cursor: pointer;
-    margin: 10px;
-    border-radius: 5px;
-    background: white;
-    font-weight: 400;
-    font-size: 13px;
-    border: none;
-}
-
-form button:hover {
-    box-shadow: 1px 1px 10px white;
-}
-
-form button:active {
-    box-shadow: none;
-}
-
-form a:hover, .change-password a:hover {text-shadow: 1px 1px 5px white;}
-
-.form-image {
+.profile-image {
     text-align: center;
     width: 100%;
     height: auto;
 }
 
-.form-image > img {
+.profile-image > img {
     width: 150px;
     height: 150px;
     background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 
-.form-button {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    margin-bottom: 10px;
+#id_date_birth_year, #id_date_birth_month, #id_date_birth_day {
+    min-width: 60px;
+    width: 107px;
+    flex-wrap: wrap;
+    text-align-last: center;
 }
 
+input[type="file"] {display: none;}
 
-form p > select {
-    width: 15%;
-    margin-right: 10px;
-}
-
-form p {
-    margin: 0;
-    white-space: nowrap;
-}
-
-#id_gender {width: 25%;}
-
-.form-error {
-    color: white;
-    white-space: nowrap;
-}
-
-
-.profile-block, .password-block {
+.profile form p:first-of-type label {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.fa-user-circle {
+    min-width: 180px;
+    width: 321px;
+    height: 26px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all .5s;
+    text-align: center;
+}
+
+.fa-user-circle:hover {
+    background-color: rgba(0, 0, 0, .5);
+    color: #7a0b0b;
+}
+
+.fa-user-circle:hover .image-text {
+    color: #fff;
+}
+
+.image-text {
+    font-size: 16px;
+    color: #a8a8a8;
+    margin-left: 10px;
+    position: relative;
+    top: -3px;
+    font-weight: 200;
+}
+
+#id_gender {
+    flex: 2;
+    text-align-last: center;
+}
+
+.profile form button {
+    width: 120px;
+    font-size: 16px;
+}
+
+.user-form {
+    min-width: 350px;
+    width: 500px;
+    height: auto;
+    border-radius: 5px;
+    text-align: center;
 }
 
 .change-password {
-    overflow: auto;
-    padding: 0px;
-    width: 40%;
-    height: 25vh;
-    margin: 20px 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
+    width: auto;
+    background-color: rgba(0, 0, 0, .6);
+    border: 1px solid black;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px;
 }
 
-.change-password h1 {
-    font-weight: 300;
-    margin: 0px;
+.change-password a {
+    color: #740202;
+    font-weight: 400;
+}
+
+.errorlist {
+    font-display: flex;
+    width: 100%;
+    text-wrap: wrap;
     margin-bottom: 10px;
 }
 
@@ -462,11 +543,15 @@ form p {
     overflow: hidden;
 }
 
-.poster-price {
-    z-index: 6;
-    color: #fff;
+.product-discount span {
+    z-index: 5;
+    color: #ff0000;
     position: absolute;
-    font-size: 20px;
+    font-size: 22px;
+    font-weight: 500;
+    top: 10px;
+    left: 10px;
+    transition: .4s linear;
 }
 /* .poster::before {
     content: '';
@@ -490,6 +575,7 @@ form p {
     transition: .4s linear;
 }
 .card:hover .poster img {transform: scale(1.1);}
+.card:hover .product-discount span {transform: scale(1.1);}
 
 .poster > a > img {
     z-index: 3;
@@ -543,6 +629,17 @@ form p {
 
 .details .rating i {color: #e3c414;}
 .details .rating span {margin-left: 5px;}
+
+.product-price {
+    margin-top: 10px;
+    font-size: 20px;
+    color: #79ff5b;
+}
+
+.product-price s{
+    margin-left: 20px;
+    font-size: 20px;
+}
 
 .details .tags {
     display: flex;
@@ -605,10 +702,9 @@ form p {
 }
 
 .product-img-block, .product-info {
-    width: 500px;
-    height: 550px;
+    width: 550px;
+    height: 570px;
     border-radius: 5px;
-    /* border: 1px solid black; */
     box-shadow: 1px 1px 10px 4px rgba(44, 44, 44, .5);
     gap: 30px;
 
@@ -616,7 +712,7 @@ form p {
 
 .product-img-block img {
     width: 100%;
-    height: 550px;
+    height: 570px;
     object-fit: cover;
     border-radius: 5px;
 }
@@ -629,6 +725,12 @@ form p {
     -webkit-backdrop-filter: blur(3px);
 }
 
+.product-info-price {
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+}
+
 .product-info h2 {
     text-align: center;
     font-weight: 300;
@@ -636,17 +738,63 @@ form p {
 
 
 .product-description {
-    height: 250px;
+    padding-top: 10px;
+    height: 370px;
     overflow: auto;
     white-space: normal;
     text-align: start;
+    font-size: 15px;
 }
 
-.product-description p, .product-info p {font-size: 20px;}
+.product-description p {
+    margin: 0;
+    font-size: 18px;
+}
 
 .muted {
     font-size: 15px;
     color: silver;
+}
+
+.cart-form {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+.cart-form form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.cart-form form div {
+    width: 50%;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.cart-form form select, .cart-form form input {
+    width: 100px;
+    padding-left: 3px;
+    height: 22px;
+    border-radius: 5px;
+    border: none;
+}
+
+.cart-form .button {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.cart-form .button button {margin: 0;}
+
+.cart-form form .error_message {
+    font-size: 16px;
+    width: 100%;
 }
 
 /* ---------------------------Комментарии-------------------------- */
@@ -691,7 +839,7 @@ form p {
 
 .review {overflow: auto;}
 
-.review-all {
+.reviews-all {
     width: 100%;
 }
 
@@ -704,6 +852,7 @@ form p {
 .review-info {margin: 0px 5px;}
 
 .review > p {margin: 5px;}
+
 
 /*----------------------------Пагинации страницы--------------------------- */
 
@@ -751,8 +900,6 @@ form p {
 /* --------------------------------Стили для корзины----------------------------- */
 .cart-block {
     width: 100%;
-    height: 80%;
-    padding: 30px;
 }
 
 .cart {
@@ -774,6 +921,7 @@ form p {
     font-size: 18px;
     height: 100px;
     border: 1px solid silver;
+    margin-bottom: 10px;
 }
 
 .cart-cell {
@@ -782,16 +930,24 @@ form p {
 }
 
 .cart-cell img {
-    margin-top: 4px;
     width: 100px;
     height: 100px;
     border: 0.5px solid silver;
 }
 
 .button-delete {
-    width: 70px;
-    height: 20px;
+    width: 70px; 
+    height: 25px;
     font-size: 14px;
+    transition: all .4s ease;
+    background-color: #fff;
+    border-radius: 5px;
+    border: none;
+}
+
+.button-delete:hover {
+    background-color: #350000;
+    color: #fff;
 }
 
 .add-remove {
@@ -800,7 +956,10 @@ form p {
     font-size: 16px;
 }
 
-.price {font-weight: bolder;}
+.cart-cell .price {
+    font-weight: bolder;
+    margin: 0;
+}
 
 .final-result {
     width: 100%;
@@ -816,7 +975,8 @@ form p {
     padding: 5px;
     border: none;
     border-radius: 5px;
-    background-color: white
+    background-color: white;
+    transition: all .4s ease;
 }
 
 .final-result button:hover {box-shadow: 2px 2px 5px 1px silver;}

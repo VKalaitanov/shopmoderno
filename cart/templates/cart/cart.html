@@ -47,8 +47,13 @@
         {% endfor %}
         <hr>
         <div class="final-result">
-            <p>Итого: <span class="total-info">{{ total_sum }}</span> руб.</p>
-            <p>Количество: <span class="total-info">{{ cart_items_quantity }}</span> шт.</p>
+            <ul>
+                <li>Количество: <span class="total-info">{{ cart_items_quantity }}</span> шт.</li>
+                <li>Общая стоимость: <span class="total-info">{{ total_sum }}</span> руб.</li>
+                <li>Общая стоимость со скидкой: <span class="total-info">{{ total_discount_price }}</span> руб.</li>
+                <li>Скидка: <span class="total-info text-danger">{{ discount }}</span> руб.</li>
+            </ul>
+            <hr>
             <a href="">
                 <button type="submit">Перейти к оплате</button>
             </a>

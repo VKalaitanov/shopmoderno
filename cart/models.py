@@ -38,3 +38,5 @@ class Cart(models.Model):
 
     def sum(self):
         return self.quantity * self.product.price
+
+

@@ -68,17 +68,26 @@ class ShowProduct(DataMixin, FormMixin, DetailView):
         context = super().get_context_data(**kwargs)
         slug = self.kwargs[self.slug_url_kwarg]
         product = get_object_or_404(Product, slug=slug)
+        error_message = self.request.session.pop('error_message', None)
         images = (
             ProductImage.objects
             .filter(product=product)
             .select_related('product', )
         )
 
+        reviews = (
+            product.reviews.all()
+                   .order_by('-create_date')
+                   .select_related('user', 'product')
+        )
+
         return self.get_mixin_context(
             context,
             title=context['product'].name,
             images=images,
-            cart_product_form=self.cart_product_form
+            cart_product_form=self.cart_product_form,
+            error_message=error_message,
+            reviews=reviews,
         )
 
     def get_object(self, queryset=None):

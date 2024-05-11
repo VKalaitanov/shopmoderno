@@ -9,15 +9,15 @@ class Like(models.Model):
         get_user_model(),
         on_delete=models.CASCADE,
         verbose_name='Пользователь',
-        related_name='like'
+        related_name='likes'
     )
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
         verbose_name='Товар',
-        related_name='like'
+        related_name='likes'
     )
-    like = models.PositiveIntegerField(default=0, verbose_name='Лайк')
+    like = models.BooleanField(default=False, verbose_name='Избранное')
     created_timestamp = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Дата добавления лайка'

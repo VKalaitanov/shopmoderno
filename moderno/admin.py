@@ -15,7 +15,7 @@ class ProductAdmin(admin.ModelAdmin):
     #     'discount_price', 'available', 'category'
     # )
 
-    list_display = ('name', 'image_show', 'available', 'price',)
+    list_display = ('name', 'image_show', 'available', 'price', 'discount_price')
     list_filter = ('available', 'time_create', 'time_update')
     list_editable = ('available',)
     # readonly_fields = ('slug', )

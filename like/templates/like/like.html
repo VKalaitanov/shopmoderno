@@ -2,89 +2,47 @@
 {% load static %}
 
 {% block content %}
-{% comment %}
-<div class="basket-block">
-    <div class="basket">
-        {% for like in likes %}
-        <div class="basket-product">
-            <div class="basket-cell">
-                <a href="{{ like.product.get_absolute_url }}">
-                    {% if like.product.image %}
-                    <img src="{{ like.product.image.url }}" title="{{ like.product.name }}">
-                    {% else %}
-                    <img src="{% static 'moderno/images/default.png' %}" title="{{ like.product.name }}">
-                    {% endif %}
-                </a>
-            </div>
-            <div class="basket-cell">
-                {{like.product.name}}
-            </div>
-            <div class="basket-cell">
-                Размер
-            </div>
-            <div class="basket-cell">
-                <p class="price">{{like.sum}} р.</p>
-            </div>
-            <div class="basket-cell">
-                <a href="{% url 'like:like_add' like.product.id %}">
-                    <button class="add-remove" type="submit">+</button>
-                </a>
-                {{like.quantity}} шт.
-
-            </div>
-
-        </div>
-        {% endfor %}
-        <hr>
-        <div class="final-result">
-            <p>Количество: <span class="total-info">{{quantity_likes}}</span> шт.</p>
-            <a href="">
-                <button type="submit">Перейти к оплате</button>
-            </a>
-        </div>
-    </div>
-</div>
-{% endcomment %}
 
 <div class="products-all">
     {% for like in likes %}
+    {% with like.product as product %}
     <div class="card">
-        <div class="poster-price">
-            {{ like.product.discount_price }}
-            <span class="text-danger bg-success">{{ like.product.discount }}%</span>
+        <div class="product-discount">
+            <span>{{ product.discount }}%</span>
         </div>
         <div class="poster">
-            <a href="{% url 'like:like_add' like.product.id %}">
-                {% if like.user %}
-                <img id="active-like" src="{% static 'moderno/images/icon-heart.png' %}" title="{{ like.product.name }}">
-                {% else %}
-                <img src="{% static 'moderno/images/icon-heart.png' %}" title="{{ like.product.name }}">
-                {% endif %}
+            <a href="{% url 'like:like_add' product.id %}">
+                <img id="active-like" src="{% static 'moderno/images/icon-heart.png' %}" title="{{ product.name }}">
             </a>
-            <img src="{{ like.product.image.url }}" title="{{ like.product.name }}">
+            <img src="{{ product.image.url }}" title="{{ product.name }}">
         </div>
 
         <div class="details">
-            <a href="{{ like.product.get_absolute_url }}" title="Перейти">
-                <h3>{{ like.product.name }}</h3>
+            <a href="{{ product.get_absolute_url }}" title="Перейти">
+                <h3>{{ product.name }}</h3>
             </a>
             <div class="rating">
-                {% if like.product.avg_rating %}
+                {% if product.avg_rating %}
                 {% for i in "*****" %}
-                {% if forloop.counter <= like.product.avg_rating %}
+                {% if forloop.counter <= product.avg_rating %}
                 <i class="fas fa-star"></i>
                 {% else %}
                 <i class="far fa-star"></i>
                 {% endif %}
                 {% endfor %}
-                <span>{{ like.product.avg_rating }}/5</span>
+                <span>{{ product.avg_rating }}/5</span>
                 {% else %}
                 <span class="muted">Нет рейтинга </span>
                 {% endif %}
             </div>
 
+            <div class="product-price">
+                <span>{{ product.discount_price }}</span>
+                <s class="muted">{{ product.price }}</s>
+            </div>
+
             <div class="tags">
-                <span class="tag"><a href="{{ like.product.category.get_absolute_url }}">{{ like.product.category }}</a></span>
+                <span class="tag"><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></span>
             </div>
 
             <div class="cast">
@@ -106,6 +64,7 @@
             </div>
         </div>
     </div>
+    {% endwith %}
     {% endfor %}
 </div>
 {% endblock %}
