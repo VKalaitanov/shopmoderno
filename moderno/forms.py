@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Review
+from .models import Review, Feedback
 
 
 class ReviewForm(forms.ModelForm):
@@ -22,3 +22,26 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ('review', 'rating')
+
+
+class FeedbackCreateForm(forms.ModelForm):
+    """
+    Форма отправки обратной связи
+    """
+    # subject = forms.CharField(label='',max_length=100, widget=forms.Textarea(attrs={'placeholder': 'form-input'}))
+
+    class Meta:
+        model = Feedback
+        fields = ('subject', 'email', 'content')
+        labels = {
+            'subject': '',
+            'email': '',
+            'content': '',
+        }
+        widgets = {
+            'subject': forms.TextInput(attrs={'placeholder': 'Тема письма'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Электронный адрес (email)'}),
+            'content': forms.Textarea(attrs={'placeholder': 'Содержимое письма'}),
+        }
+
+

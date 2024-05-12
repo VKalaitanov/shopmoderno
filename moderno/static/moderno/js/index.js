@@ -38,9 +38,45 @@ $(document).ready(function() {
 
     });
 
-//    Меняет стили для дефолтной кнопки загрузки(добавляем иконку)
+//    Меняет стили для дефолтной кнопки загрузки фото(добавляем иконку)
     var icon = $('<i class="fa fa-user-circle" aria-hidden="true"><span class="image-text">загрузите ваше фото</span></i>');
     $('.profile form p:first-of-type label').append(icon);
+
+
+// функция для анимации иконки с сообщением
+    $('#feedback').mouseenter(function() {
+        startShaking();
+    });
+    $('#feedback').mouseleave(function() {
+        stopShaking();
+    });
+
+    function startShaking() {
+        var block = $('#feedback');
+        block.css('transition', 'transform 0.1s ease-in-out');
+        var interval = setInterval(function() {
+            var randomX = Math.random() * 10 - 5;
+            var randomY = Math.random() * 10 - 5;
+            block.css('transform', 'translate(' + randomX + 'px,' + randomY + 'px)');
+        }, 100);
+        block.data('interval', interval);
+    }
+
+    function stopShaking() {
+        var block = $('#feedback');
+        clearInterval(block.data('interval'));
+        block.css('transform', 'translate(0, 0)');
+    }
+// прячет блок с отправкой сообщения
+    $(".feedback-form").hide()
+
+    $(".feedback").on("click", function() {
+        $(".feedback-form").slideToggle(500);
+    });
+
+    setTimeout(function() {
+      $(".message").hide();
+    }, 5000); // Прячем блок через 5 секунд
 
 });
 
@@ -79,4 +115,19 @@ $(document).ready(function() {
     });
 });
 
-
+//    function startShaking() {
+//      var block = document.getElementById("feedback");
+//      block.style.transition = 'transform 0.1s ease-in-out';
+//      var interval = setInterval(function() {
+//        var randomX = Math.random() * 10 - 5;
+//        var randomY = Math.random() * 10 - 5;
+//        block.style.transform = 'translate(' + randomX + 'px,' + randomY + 'px)';
+//      }, 100);
+//      block.interval = interval;
+//    }
+//
+//    function stopShaking() {
+//      var block = document.getElementById("feedback");
+//      clearInterval(block.interval);
+//      block.style.transform = 'translate(0, 0)';
+//    }

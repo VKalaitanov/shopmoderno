@@ -1,11 +1,14 @@
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import FormMixin
+from django.views.generic.edit import FormMixin, CreateView
+from .mail import send_contact_email_message
+from .utils import get_client_ip
 
 from cart.forms import AddToCartForm
-from .forms import ReviewForm
-from .models import Product, ProductImage
+from .forms import ReviewForm, FeedbackCreateForm
+from .models import Product, ProductImage, Feedback
 from .utils import DataMixin
 
 
@@ -77,8 +80,8 @@ class ShowProduct(DataMixin, FormMixin, DetailView):
 
         reviews = (
             product.reviews.all()
-                   .order_by('-create_date')
-                   .select_related('user', 'product')
+            .order_by('-create_date')
+            .select_related('user', 'product')
         )
 
         return self.get_mixin_context(
@@ -99,5 +102,23 @@ def about(request):
     return render(request, 'moderno/about.html', {'title': 'Страница про нас'})
 
 
-def contacts(request):
-    return render(request, 'moderno/contacts.html', {'title': 'Страница контакты'})
+class FeedbackCreateView(SuccessMessageMixin, CreateView):
+    model = Feedback
+    form_class = FeedbackCreateForm
+    success_message = 'Ваше письмо успешно отправлено администрации сайта'
+    template_name = 'moderno/contacts.html'
+    extra_context = {'title': 'Страница контакты'}
+    success_url = reverse_lazy('moderno:contacts')
+
+    def form_valid(self, form):
+        if form.is_valid():
+            feedback = form.save(commit=False)
+            feedback.ip_address = get_client_ip(self.request)
+            if self.request.user.is_authenticated:
+                feedback.user = self.request.user
+
+            send_contact_email_message(
+                feedback.subject, feedback.email, feedback.content,
+                feedback.ip_address, feedback.user_id
+            )
+        return super().form_valid(form)

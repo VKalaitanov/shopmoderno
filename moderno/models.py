@@ -85,7 +85,6 @@ class Product(models.Model):
 
         return None
 
-
     def discount(self):
         if self.discount_price:
             return round((self.price - self.discount_price) / self.price * 100, 1)
@@ -182,3 +181,36 @@ class Review(models.Model):
 
     def __str__(self):
         return f'Пользователь: {self.user}, товар: {self.product}, оценка: {self.rating}'
+
+
+class Feedback(models.Model):
+    """
+    Модель обратной связи
+    """
+    subject = models.CharField('Тема письма', max_length=255)
+    email = models.EmailField('Электронный адрес (email)', max_length=255)
+    content = models.TextField('Содержимое письма', max_length=700)
+    time_create = models.DateTimeField('Дата отправки', auto_now_add=True)
+
+    ip_address = models.GenericIPAddressField(
+        'IP отправителя',
+        blank=True,
+        null=True
+    )
+
+    user = models.ForeignKey(
+        get_user_model(),
+        verbose_name='Пользователь',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        verbose_name = 'Обратная связь'
+        verbose_name_plural = 'Обратная связь'
+        ordering = ['-time_create']
+        db_table = 'app_feedback'
+
+    def __str__(self):
+        return f'Вам письмо от {self.user.name}, email: {self.email}'

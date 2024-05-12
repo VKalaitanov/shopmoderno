@@ -2,16 +2,13 @@ from django.contrib.auth.views import (
     PasswordResetView, PasswordResetDoneView, PasswordChangeDoneView,
     PasswordResetConfirmView, PasswordResetCompleteView,
 )
+from django.urls import path, reverse_lazy
 
+from . import views
 from .views import (
     EmailConfirmationSentView, UserConfirmEmailView,
-    EmailConfirmedView,
-    EmailConfirmationFailedView
+    EmailConfirmedView, EmailConfirmationFailedView
 )
-
-from django.urls import path, reverse_lazy
-from . import views
-
 
 app_name = 'users'
 

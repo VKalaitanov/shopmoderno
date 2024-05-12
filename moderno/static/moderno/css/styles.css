@@ -53,7 +53,7 @@ form p label {
     white-space: nowrap;
 }
 
-form p input {
+form p input, form p textarea {
     flex: 2;
     border: none;
     border-radius: 3px;
@@ -75,7 +75,7 @@ form button {
     border-radius: 5px;
     background: white;
     font-weight: 400;
-    font-size: 13px;
+    font-size: 15px;
     border: none;
 }
 
@@ -797,7 +797,7 @@ input[type="file"] {display: none;}
     width: 100%;
 }
 
-/* ---------------------------Комментарии-------------------------- */
+/* ---------------------------ОТЗЫВЫ-------------------------- */
 .review-block {
     width: 100%;
     margin-right: 20px;
@@ -847,6 +847,10 @@ input[type="file"] {display: none;}
     margin-bottom: 10px;
     white-space: normal;
     color: white;
+    background-color: rgba(0, 0, 0, .4);
+   backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    border-radius: 5px;
 }
 
 .review-info {margin: 0px 5px;}
@@ -984,5 +988,117 @@ input[type="file"] {display: none;}
 .total-info {font-weight: 400;}
 
 
-/* --------------------------jgvfhfh----------------------------- */
+/* --------------------------Страница КОНТАКТЫ----------------------------- */
+
+.contacts {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.contacts-info, .contacts-map {
+   width: 550px;
+   height: 400px;
+   color: #fff;
+}
+
+.contacts-info {padding: 10px;}
+
+.contacts-info ul {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.contacts-info ul li {
+    font-size: 16px;
+    margin-left: 30px;
+}
+
+.contacts-logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.contacts-logo img {
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+}
+
+
+
+.contacts-logo span {
+    position: relative;
+    top: 10px;
+    font-size: 30px;
+    align-self: flex-end;
+
+}
+
+
+.contacts-map img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.feedback-block {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+}
+
+.feedback {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    transition: all 0.4;
+    text-align: end;
+}
+
+.feedback img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.feedback-form form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.feedback-form form .errorlist {color: #ff0000;}
+
+.feedback-form form p textarea {
+    resize: none;
+    height: 100px;
+    box-sizing: border-box;
+}
+
+.feedback-form form p {height: auto;}
+.form-button, .form-button button {margin: 0;}
+.form-button button:hover {
+    box-shadow: none !important;
+
+}
+
+.message {
+    position: absolute;
+    z-index: 10;
+    background-color: #1faa00;
+    color: #000;
+    font-weight: 20px;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 20px 30px;
+}
 

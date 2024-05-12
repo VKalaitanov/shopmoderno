@@ -1,8 +1,49 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block content %}
+{% if messages %}
+{% for message in messages %}
+<div class="message">{{ message }}</div>
+{% endfor %}
+{% endif %}
 <div class="contacts">
-    <h1>Наши контакты:</h1>
-    <hr>
+    <div class="contacts-info">
+        <div class="contacts-logo">
+            <img src="{% static 'moderno/images/logo.png' %}" alt="">
+            <span>o d e r n o</span>
+        </div>
+        <h5>Магазин дизайнерской одежды</h5>
+        <p>г. Ростов-на Дону, ул. Большая садовая, д. 97</p>
+        <ul>Режим работы:
+            <li>Пн-Пт 8:00 - 21:00</li>
+            <li>Сб 10:00 - 20:00</li>
+            <li>Вс 10:00 - 19:00</li>
+        </ul>
+        <ul>Номера телефонов:
+            <li>+7(961)-123-45-67</li>
+            <li>+7(752)-123-45-67</li>
+            <li>+7(356)-123-45-67</li>
+        </ul>
+    </div>
+    <div class="contacts-map">
+        <img src="{% static 'moderno/images/yandex.png' %}" alt="">
+    </div>
+    <div class="feedback-block">
+        <div class="feedback-form">
+            <form method="post" action="">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="form-button">
+                    <button type="submit" class="btn btn-dark">Отправить письмо</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="feedback" id="feedback">
+        <img src="{% static 'moderno/images/feedback.png' %}" alt="">
+    </div>
 </div>
+
 {% endblock %}
