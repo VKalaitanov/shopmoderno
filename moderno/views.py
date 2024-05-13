@@ -3,13 +3,12 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin, CreateView
-from .mail import send_contact_email_message
-from .utils import get_client_ip
 
+from .mail import send_contact_email_message
 from cart.forms import AddToCartForm
 from .forms import ReviewForm, FeedbackCreateForm
 from .models import Product, ProductImage, Feedback
-from .utils import DataMixin
+from .utils import DataMixin, get_client_ip
 
 
 class HomePage(DataMixin, ListView):
@@ -18,7 +17,7 @@ class HomePage(DataMixin, ListView):
     title_page = 'Главная страница'
 
     def get_queryset(self):
-        return Product.published.all().select_related('category', )
+        return Product.published.all().select_related('category').prefetch_related('likes')
 
 
 class ProductCategory(DataMixin, ListView):
