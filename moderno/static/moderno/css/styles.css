@@ -26,6 +26,7 @@ form {
     border-radius: 5px;
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
+    overflow: hidden;
 }
 
 form h1 {
@@ -400,6 +401,13 @@ input[type="file"] {display: none;}
     margin-bottom: 10px;
 }
 
+
+.grecaptcha-badge{
+    z-index: 0 !important;
+   
+}
+
+
 /* -----------------Стили для категорий---------------------------- */
 
 .menu {
@@ -726,10 +734,12 @@ input[type="file"] {display: none;}
 }
 
 .product-info-price {
-    font-size: 18px;
+    font-size: 20px;
     display: flex;
     justify-content: space-between;
 }
+
+.product-info-price span s.muted{font-size: 20px;}
 
 .product-info h2 {
     text-align: center;

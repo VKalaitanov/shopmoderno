@@ -74,9 +74,10 @@ $(document).ready(function() {
         $(".feedback-form").slideToggle(500);
     });
 
+// Прячем блок c уведомлением через 5 секунд
     setTimeout(function() {
       $(".message").hide();
-    }, 5000); // Прячем блок через 5 секунд
+    }, 5000);
 
 });
 
@@ -115,19 +116,7 @@ $(document).ready(function() {
     });
 });
 
-//    function startShaking() {
-//      var block = document.getElementById("feedback");
-//      block.style.transition = 'transform 0.1s ease-in-out';
-//      var interval = setInterval(function() {
-//        var randomX = Math.random() * 10 - 5;
-//        var randomY = Math.random() * 10 - 5;
-//        block.style.transform = 'translate(' + randomX + 'px,' + randomY + 'px)';
-//      }, 100);
-//      block.interval = interval;
-//    }
-//
-//    function stopShaking() {
-//      var block = document.getElementById("feedback");
-//      clearInterval(block.interval);
-//      block.style.transform = 'translate(0, 0)';
-//    }
+function onSubmit(token) {
+    console.log(token)
+    document.getElementById("demo-form").submit();
+}
