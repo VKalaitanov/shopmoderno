@@ -3,17 +3,19 @@
 {% block content %}
 <div class="user-form-block">
     <div class="user-form">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="demo-form">
             <h1>{{ title }}</h1>
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
-            <div class="form-error">{{ form.non_field_errors }}</div>
-            {% for f in form %}
-            <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}:</label>{{ f }}</p>
-            <div class="form-error">{{ f.errors }}</div>
-            {% endfor %}
+            {{ form.as_p }}
             <div class="button">
-                <button type="submit">Регистрация</button>
+                <button class="g-recaptcha"
+                        data-sitekey="6Lff5dopAAAAAP3ZwAkgGuaB4I5BShPlLdDouwYI"
+                        data-callback='onSubmit'
+                        data-theme='dark'
+                        data-action='submit'>Регистрация
+                </button>
+                <div class="text-danger" id="recaptchaError"></div>
             </div>
             <hr>
         </form>

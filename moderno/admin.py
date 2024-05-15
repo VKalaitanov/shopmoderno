@@ -39,8 +39,8 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     fields = ('user', 'product', 'rating', 'review')
-    ordering = ('-create_date', 'product', 'user', 'rating')
-    list_display = ('user', 'product', 'rating', 'create_date')
+    ordering = ('-time_create', 'product', 'user', 'rating')
+    list_display = ('user', 'product', 'rating', 'time_create')
     list_display_links = ('user', 'product')
     # readonly_fields = ('user', 'product_review', 'rating', 'review')
 

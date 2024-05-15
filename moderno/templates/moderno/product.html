@@ -13,11 +13,10 @@
                     <div class="carousel-item active">
                         <img src="{{ image.product.image.url }}" title="{{ image.product.name }}">
                     </div>
-                    {% else %}
+                    {% endif %}
                     <div class="carousel-item">
                         <img src="{{ image.images.url }}" title="{{ image.product.name }}">
                     </div>
-                    {% endif %}
                     {% endfor %}
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -61,7 +60,9 @@
                     <div class="button">
                         <button type="submit">Добавить в корзину</button>
                     </div>
-                    {% if error_message %}<div class="error_message text-danger">{{ error_message }}</div>{% endif %}
+                    {% if error_message %}
+                    <div class="error_message text-danger">{{ error_message }}</div>
+                    {% endif %}
                 </form>
             </div>
         </div>
@@ -70,17 +71,25 @@
     <div class="review-block" id="review-block">
         {% if user.is_authenticated %}
         <div class="review-form">
-            <form action="" method="post">
+            <form action="" method="post" id="demo-form">
                 {% csrf_token %}
                 {{ form }}
-                <button type="submit">Отправить</button>
+                <div class="button">
+                    <button class="g-recaptcha"
+                            data-sitekey="6Lff5dopAAAAAP3ZwAkgGuaB4I5BShPlLdDouwYI"
+                            data-callback='onSubmit'
+                            data-theme='dark'
+                            data-action='submit'>Отправить
+                    </button>
+                </div>
             </form>
         </div>
         {% else %}
         <div class="review-form">
             <form>
                 <p>Для отправки отзыва вам необходимо
-                    <a href="{% url 'users:login' %}" class="fw-bold">авторизоваться</a>.
+                    <a href="{% url 'users:login' %}" class="fw-bold">авторизоваться</a>
+                </p>
             </form>
         </div>
         {% endif %}

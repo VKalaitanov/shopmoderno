@@ -7,8 +7,8 @@ from .models import Review, Feedback
 class ReviewForm(forms.ModelForm):
     user = forms.HiddenInput()
     review = forms.CharField(
-        max_length=1000,
         label='Добавить отзыв:',
+        max_length=1000,
         widget=forms.Textarea(attrs={'class': 'form-area'})
     )
 

@@ -10,7 +10,7 @@ class PublishedManager(models.Manager):
     """Менеджер опубликованных записей"""
 
     def get_queryset(self):
-        return super().get_queryset().filter(available=True)
+        return super().get_queryset().filter(available=True).select_related('category')
 
 
 def product_image_directory_path(instance, filename):
@@ -164,7 +164,7 @@ class Review(models.Model):
     )
 
     review = models.TextField('Отзыв', max_length=1000, blank=True, null=True)
-    create_date = models.DateTimeField('Дата добавления', auto_now_add=True)
+    time_create = models.DateTimeField('Дата добавления', auto_now_add=True)
 
     rating = models.IntegerField(
         'Оценка',
@@ -175,7 +175,8 @@ class Review(models.Model):
     )
 
     class Meta:
-        ordering = ('-create_date',)
+        ordering = ('-time_create',)
+        indexes = [models.Index(fields=['-time_create', 'rating'])]
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
 

@@ -51,9 +51,6 @@ class RegisterUserForm(UserCreationForm):
         }
 
     def clean_email(self):
-        """
-        Проверка email на уникальность
-        """
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
         if email and get_user_model().objects.filter(email=email).exclude(username=username).exists():
@@ -63,12 +60,15 @@ class RegisterUserForm(UserCreationForm):
 
 class ProfileUserForm(forms.ModelForm):
     username = forms.CharField(
-        disabled=True, label='Логин',
+        label='Логин',
+        disabled=True,
         widget=forms.TextInput(attrs={'class': 'form-input'})
     )
     email = forms.CharField(
-        disabled=True, required=False, label='E-mail',
-        widget=forms.TextInput(attrs={'class': 'form-input'})
+        label='E-mail',
+        disabled=True,
+        required=False,
+        widget=forms.EmailInput(attrs={'class': 'form-input'})
     )
     this_year = datetime.date.today().year
     date_birth = forms.DateField(

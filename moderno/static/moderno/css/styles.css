@@ -1,6 +1,7 @@
 * {
     padding: 0;
     margin: 0;
+    /* outline: 2px solid green !important; */
 }
 
 html {height: 100%;}
@@ -98,7 +99,6 @@ form a:hover, .change-password a:hover {text-shadow: 1px 1px 5px white;}
     color: rgb(255, 0, 0);
     white-space: nowrap;
     font-size: 18px;
-
 }
 
 .form-button {
@@ -138,6 +138,7 @@ body {
     position: sticky;
     top: 0;
     left: 0;
+    transition: top .5s;
 }
 
 .header-container {
@@ -145,6 +146,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .auth a:hover, .about-contacts a:hover {
@@ -178,8 +181,20 @@ body {
     font-size: 14px;
     border: none;
     border-radius: 5px;
-    width: 150px;
-    height: 20px;
+    width: 170px;
+    height: 25px;
+}
+
+.search form {
+    position: relative;
+}
+
+.search form i {
+    position: absolute;
+    right: 13px;
+    bottom: 13px;
+    z-index: 10;
+    color: #000;
 }
 
 .moderno {
@@ -205,6 +220,7 @@ footer {
     background-color: rgba(0, 0, 0, 0.4);
     flex: 0 0 auto;
     width: 100%;
+    height: auto;
 }
 
 .footer {
@@ -212,6 +228,8 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 .footer > div {
     flex: 1;
@@ -370,6 +388,7 @@ input[type="file"] {display: none;}
 .profile form button {
     width: 120px;
     font-size: 16px;
+    transition: all .5s;
 }
 
 .user-form {
@@ -395,16 +414,11 @@ input[type="file"] {display: none;}
 }
 
 .errorlist {
-    font-display: flex;
+    /* font-display: flex; */
     width: 100%;
     text-wrap: wrap;
     margin-bottom: 10px;
-}
-
-
-.grecaptcha-badge{
-    z-index: 0 !important;
-   
+    color: #cf0000;
 }
 
 
@@ -525,7 +539,7 @@ input[type="file"] {display: none;}
 
 /* -------------------Стили для главной страницы------------------------ */
 .products-all {
-    width: auto;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     gap: 30px;
@@ -710,6 +724,7 @@ input[type="file"] {display: none;}
 }
 
 .product-img-block, .product-info {
+    min-width: 300px;
     width: 550px;
     height: 570px;
     border-radius: 5px;
@@ -776,8 +791,8 @@ input[type="file"] {display: none;}
 .cart-form form {
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .cart-form form div {
@@ -817,31 +832,40 @@ input[type="file"] {display: none;}
 
 .review-form {
     width: 100%;
+    height: auto;
     display: flex;
     justify-content: center;
     color: #fff;
     gap: 10px;
+    margin-bottom: 30px;
 }
-
-.review-form form {width: 500px;}
 
 .review-block > p {
     margin: 5px 0px;
     font-weight: 400;
 }
 
-.review-form form > div {
+.review-form form {
+    width: 550px;
     display: flex;
     flex-direction: column;
     font-size: 18px;
     color: white;
 }
 
-.review-form  form > button {margin: 10px 0px 0px 0px;}
+.review-form  form .button {
+    text-align: center;
+    margin: 20px 0 0 0;
+}
+
+.review-form  form button {
+    width: 100px;
+    
+}
 
 .form-area {
     height: 150px;
-    margin: 10px 0;
+    margin-bottom: 10px;
     resize: none;
     padding-left: 5px;
     font-size: 16px;
@@ -1095,11 +1119,8 @@ input[type="file"] {display: none;}
 }
 
 .feedback-form form p {height: auto;}
-.form-button, .form-button button {margin: 0;}
-.form-button button:hover {
-    box-shadow: none !important;
-
-}
+.form-button, .form-button button {margin: 10px 0 0 0;}
+.form-button button:hover {box-shadow: none !important;}
 
 .message {
     position: absolute;

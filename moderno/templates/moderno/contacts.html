@@ -32,11 +32,16 @@
     </div>
     <div class="feedback-block">
         <div class="feedback-form">
-            <form method="post" action="">
+            <form method="post" action="" id="demo-form">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <div class="form-button">
-                    <button type="submit" class="btn btn-dark">Отправить письмо</button>
+                    <button class="g-recaptcha btn btn-dark"
+                            data-sitekey="6Lff5dopAAAAAP3ZwAkgGuaB4I5BShPlLdDouwYI"
+                            data-callback='onSubmit'
+                            data-theme='dark'
+                            data-action='submit'>Отправить
+                    </button>
                 </div>
             </form>
         </div>

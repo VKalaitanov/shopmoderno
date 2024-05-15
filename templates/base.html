@@ -29,8 +29,12 @@
         </div>
 
         <div class="search">
-            <label for="search">Поиск по сайту: </label>
-            <input type="text" name="" id="search" placeholder=" Поиск...">
+            <form role="search" method="get" action="{% url 'moderno:search' %}">
+                <input type="search" class="form-control"
+                       placeholder="Поиск..." aria-label="Search"
+                       name='do' autocomplete="off" id="search">
+               <i class="fa fa-search" aria-hidden="true"></i>
+            </form>
         </div>
         <div class="shop-icon">
             <a href="{% url 'like:like' %}">

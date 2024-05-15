@@ -1,12 +1,13 @@
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin, CreateView
 
-from .mail import send_contact_email_message
 from cart.forms import AddToCartForm
 from .forms import ReviewForm, FeedbackCreateForm
+from .mail import send_contact_email_message
 from .models import Product, ProductImage, Feedback
 from .utils import DataMixin, get_client_ip
 
@@ -79,7 +80,7 @@ class ShowProduct(DataMixin, FormMixin, DetailView):
 
         reviews = (
             product.reviews.all()
-            .order_by('-create_date')
+            .order_by('-time_create')
             .select_related('user', 'product')
         )
 
@@ -121,3 +122,38 @@ class FeedbackCreateView(SuccessMessageMixin, CreateView):
                 feedback.ip_address, feedback.user_id
             )
         return super().form_valid(form)
+
+
+class ProductSearchResultView(ListView):
+    """
+    Реализация поиска статей на сайте
+    """
+    model = Product
+    context_object_name = 'products'
+    # paginate_by = 2
+    allow_empty = True
+    template_name = 'moderno/index.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('do')
+        search_vector = SearchVector('description', weight='B') + SearchVector('name', weight='A')
+        search_query = SearchQuery(query)
+        queryset = (
+            self.model.published.annotate(
+                rank=SearchRank(search_vector, search_query)) \
+                .filter(rank__gte=0.3).order_by('-rank')
+        )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = f'Результаты поиска: {self.request.GET.get("do")}'
+        return context
+        # context = super().get_context_data(**kwargs)
+        # query = self.request.GET.get('do')
+        # if query:
+        #     context['title'] = f'Результаты поиска: {self.object_list.count()}'
+        # else:
+        #     context['title'] = 'Результаты поиска'
+        # context['total_results'] = self.object_list.count()  # Общее количество результатов
+        # return context

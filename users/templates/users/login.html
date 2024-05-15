@@ -6,7 +6,7 @@
         <form method="post" enctype="multipart/form-data" id="demo-form">
             <h1>{{ title }}</h1>
             {% csrf_token %}
-            <input type="hidden" name="next"/>
+            <input type="hidden" name="next" value="{{ next }}">
             {{ form.as_p }}
 
             <div class="button">
@@ -18,6 +18,31 @@
                 </button>
             </div>
             <div class="text-danger" id="recaptchaError"></div>
+            <hr>
+            <div class="social">
+                <ul>
+                    <li class="item">
+                        <a href="tg://resolve?domain=v_kalaytanov" aria-placeholder="Instagram">
+                            <i class="fa-brands fa-instagram social-icon" title="Instagram"></i>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="{% url 'social:begin' 'vk-oauth2' %}" aria-placeholder="VK">
+                            <i class="fa-brands fa-vk social-icon" title="VK"></i>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="{% url 'social:begin' 'github' %}" aria-placeholder="Github">
+                            <i class="fa-brands fa-github social-icon" title="Github"></i>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="tg://resolve?domain=v_kalaytanov" aria-placeholder="Telegram">
+                            <i class="fa-brands fa-telegram social-icon" title="Telegram"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <hr>
             <div class="link-form">
                 <a href="{% url 'users:password_reset' %}">Забыли пароль?</a>

@@ -11,17 +11,32 @@ $(document).ready(function() {
         $(".menu-block").slideToggle(500);
     });
 
-    $(window).scroll(function() { <!--добавляет класс fixed к шапке сайта и убирает-->
-//        var mainScroll = $(".main").height() / 2
-        var mainScroll = 50
-        if($(this).scrollTop() > mainScroll){
-            $(".header").removeClass("fixed");
+//    $(window).scroll(function() { <!--добавляет класс fixed к шапке сайта и убирает-->
+////        var mainScroll = $(".main").height() / 2
+//        var mainScroll = 50
+//        if($(this).scrollTop() > mainScroll){
+//            $(".header").removeClass("fixed");
+//        }
+//        else if ($(this).scrollTop() < mainScroll){
+//            $(".header").addClass("fixed");
+//        }
+//    });
+
+// функция для скрытия/появления шапки при скролле
+    var lastScrollTop = 0;
+    $(window).scroll(function() {
+        var st = $(this).scrollTop();
+        if (st > lastScrollTop){
+            // скроллим вниз
+            $('.header').css('top', '-100px'); // прячем шапку
+        } else {
+            // скроллим вверх
+            $('.header').css('top', '0'); // показываем шапку
         }
-        else if ($(this).scrollTop() < mainScroll){
-            $(".header").addClass("fixed");
-        }
+        lastScrollTop = st;
     });
 
+// функция для активной категории
     $(function() {
 
         var pathname_url = window.location.pathname;
