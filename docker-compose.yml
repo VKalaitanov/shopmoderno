@@ -34,7 +34,7 @@ services:
     restart: always
     ports:
       - "8100:80"
-      - "8443:443"
+      - "8443:8443"
     volumes:
       - static:/app/static
       - media:/app/media
