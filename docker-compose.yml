@@ -11,7 +11,7 @@ services:
     build:
       context: .
     ports:
-      - '8080:8000'
+      - '8080:8080'
     container_name: django-moderno
     env_file:
       - docker/env/.env.prod
@@ -33,7 +33,7 @@ services:
     image: nginx:stable-alpine
     restart: always
     ports:
-      - "8080:80"
+      - "8100:80"
       - "8443:443"
     volumes:
       - static:/app/static
