@@ -12,12 +12,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = int(env('DEBUG', default=1))
-DEBUG = True
+DEBUG = int(env('DEBUG', default=1))
+# DEBUG = True
+
 # CART_SESSION_ID = 'cart'
 
-# ALLOWED_HOSTS = env('ALLOWED_HOSTS').split()
-ALLOWED_HOSTS = ["127.0.0.1", 'localhost', 'shopmoderno.ru']
+ALLOWED_HOSTS = env('ALLOWED_HOSTS').split()
+# ALLOWED_HOSTS = ["127.0.0.1", 'localhost', 'shopmoderno.ru']
 
 INTERNAL_IPS = ["127.0.0.1"]
 
@@ -84,27 +85,27 @@ WSGI_APPLICATION = 'shopmoderno.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': env('POSTGRES_DB'),
-#         'USER': env('POSTGRES_USER'),
-#         'PASSWORD': env('POSTGRES_PASSWORD'),
-#         'HOST': env('POSTGRES_HOST'),
-#         'PORT': env('POSTGRES_PORT'),
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': env('POSTGRES_DB'),
         'USER': env('POSTGRES_USER'),
         'PASSWORD': env('POSTGRES_PASSWORD'),
-        'HOST': 'localhost',#env('POSTGRES_HOST'),
-        'PORT': 5433, #env('POSTGRES_PORT'),
+        'HOST': env('POSTGRES_HOST'),
+        'PORT': env('POSTGRES_PORT'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': env('POSTGRES_DB'),
+#         'USER': env('POSTGRES_USER'),
+#         'PASSWORD': env('POSTGRES_PASSWORD'),
+#         'HOST': 'localhost',#env('POSTGRES_HOST'),
+#         'PORT': 5433, #env('POSTGRES_PORT'),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
