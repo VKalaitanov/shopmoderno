@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'cart.apps.CartConfig',
     'like.apps.LikeConfig',
-    'debug_toolbar',
+    # 'debug_toolbar',
     'social_django',
 ]
 
