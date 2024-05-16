@@ -1,29 +1,26 @@
-# Используем официальный образ Python
-FROM python:3.10-slim
+FROM python:3.10-alpine
 
-# Устанавливаем зависимости для операционной системы
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpq-dev \
-    gettext \
-    && apt-get clean
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
 
-# Создаем и переходим в директорию проекта
-RUN mkdir /app
+# Устанавливаем обновления и необходимые модули
+RUN apk update && apk add libpq
+RUN apk add --virtual .build-deps gcc python3-dev musl-dev postgresql-dev
+
+# Обновление pip python
+RUN pip install --upgrade pip
+
+# Установка пакетов для проекта
+COPY requirements.txt ./requirements.txt
+RUN pip install -r requirements.txt
+
 WORKDIR /app
 
-# Устанавливаем зависимости
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
+# Удаляем зависимости билда
+RUN apk del .build-deps
 
-# Копируем весь проект в контейнер
-COPY . /app/
+# Копирование проекта
+COPY . .
 
-# Собираем статические файлы
-RUN python manage.py collectstatic --noinput
-
-# Открываем порт 8000 для приложения
-EXPOSE 8000
-
-# Команда для запуска приложения
-CMD ["gunicorn", "--workers=4", "--bind=0.0.0.0:8000", "shopmoderno.wsgi:application"]
+# Настройка записи и доступа
+RUN chmod -R 777 ./
