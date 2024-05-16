@@ -1,4 +1,4 @@
-version: "3.10"
+version: '3.10'
 
 volumes:
   pgdata:
@@ -24,8 +24,8 @@ services:
       - redis
     command: sh -c "python manage.py collectstatic --no-input &&
                     python manage.py makemigrations &&
-                    python manage.py migrate && 
-                    gunicorn --workers=4 --reload --max-requests=1000 shopmoderno.wsgi -b 0.0.0.0:8000"
+                    python manage.py migrate &&
+                    gunicorn --workers=4 --reload --max-requests=1000 shopmoderno.wsgi -b 0.0.0.0:8000""
 
   nginx:
     container_name: nginx
@@ -65,12 +65,13 @@ services:
     volumes:
       - ./docker/redis/data:/data
 
+
   certbot:
       image: certbot/certbot
       container_name: certbot
       volumes:
           - ./docker/certbot/conf:/etc/letsencrypt:rw
           - ./docker/certbot/www:/var/www/certbot:rw
-      command: certonly --webroot --webroot-path=/var/www/certbot/ --email kalaytanov93@gmail.com --agree-tos --no-eff-email -d project-pit.ru -d www.project-pit.ru
+      command: certonly --webroot --webroot-path=/var/www/certbot/ --email kalaytanov93@gmail.com --agree-tos --no-eff-email -d shopmoderno.ru -d www.shopmoderno.ru
       depends_on:
         - nginx
