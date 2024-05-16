@@ -72,7 +72,7 @@ services:
       volumes:
           - ./docker/certbot/conf:/etc/letsencrypt:rw
           - ./docker/certbot/www:/var/www/certbot:rw
-      command: certonly --webroot --webroot-path=/var/www/certbot/ --email kalaytanov93@gmail.com --agree-tos --no-eff-email -d project-pit.ru -d www.project-pit.ru
+      command: certonly --webroot --webroot-path=/var/www/certbot/ --email kalaytanov93@gmail.com --agree-tos --no-eff-email -d shopmoderno.ru -d www.shopmoderno.ru
       depends_on:
         - nginx
 
