@@ -19,6 +19,7 @@ DEBUG = int(env('DEBUG', default=1))
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS').split()
 # ALLOWED_HOSTS = ["127.0.0.1", 'localhost', 'shopmoderno.ru']
+DOMAIN = env('DOMAIN')
 
 INTERNAL_IPS = ["127.0.0.1"]
 
