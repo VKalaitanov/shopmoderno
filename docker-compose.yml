@@ -66,11 +66,11 @@ services:
       - ./docker/redis/data:/data
 
   certbot:
-      image: certbot/certbot
-      container_name: certbot
-      volumes:
-          - ./docker/certbot/conf:/etc/letsencrypt:rw
-          - ./docker/certbot/www:/var/www/certbot:rw
-      command: certonly --webroot --webroot-path=/var/www/certbot/ --email Kalaytanov93@gmail.com --agree-tos --no-eff-email -d shopmoderno.ru -d www.shopmoderno.ru
-      depends_on:
-        - nginx
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./docker/certbot/conf:/etc/letsencrypt:rw
+      - ./docker/certbot/www:/var/www/certbot:rw
+    command: certonly --webroot --webroot-path=/var/www/certbot/ --email Kalaytanov93@gmail.com --agree-tos --no-eff-email -d shopmoderno.ru -d www.shopmoderno.ru
+    depends_on:
+      - nginx
