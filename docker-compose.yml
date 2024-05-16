@@ -74,4 +74,3 @@ services:
       command: certonly --webroot --webroot-path=/var/www/certbot/ --email kalaytanov93@gmail.com --agree-tos --no-eff-email -d shopmoderno.ru -d www.shopmoderno.ru
       depends_on:
         - nginx
-
