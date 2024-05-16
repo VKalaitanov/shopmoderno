@@ -6,7 +6,6 @@ volumes:
   media:
 
 services:
-
   django:
     build:
       context: .
@@ -22,14 +21,14 @@ services:
     depends_on:
       - postgres
       - redis
-    command: sh -c "python manage.py collectstatic --no-input &&
-                    python manage.py makemigrations &&
-                    python manage.py migrate &&
-                    gunicorn --workers=4 --reload --max-requests=1000 shopmoderno.wsgi -b 0.0.0.0:8000"
+    command: sh -c "
+      python manage.py collectstatic --no-input &&
+      python manage.py makemigrations &&
+      python manage.py migrate &&
+      gunicorn --workers=4 --bind 0.0.0.0:8000 shopmoderno.wsgi:application"
 
   nginx:
     container_name: nginx
-    working_dir: /app
     image: nginx:stable-alpine
     restart: always
     ports:
@@ -41,8 +40,6 @@ services:
       - ./docker/nginx/prod/:/etc/nginx/conf.d:ro
       - ./docker/certbot/conf:/etc/letsencrypt:ro
       - ./docker/certbot/www:/var/www/certbot:ro
-    links:
-      - django
     depends_on:
       - django
 
@@ -65,13 +62,12 @@ services:
     volumes:
       - ./docker/redis/data:/data
 
-
   certbot:
-      image: certbot/certbot
-      container_name: certbot
-      volumes:
-          - ./docker/certbot/conf:/etc/letsencrypt:rw
-          - ./docker/certbot/www:/var/www/certbot:rw
-      command: certonly --webroot --webroot-path=/var/www/certbot/ --email email@mail.com --agree-tos --no-eff-email -d shopmoderno.ru -d www.shopmoderno.ru -v
-      depends_on:
-        - nginx
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./docker/certbot/conf:/etc/letsencrypt:rw
+      - ./docker/certbot/www:/var/www/certbot:rw
+    command: certonly --webroot --webroot-path=/var/www/certbot/ --email kalaytanov93@gmail.com --agree-tos --no-eff-email -d shopmoderno.ru -d www.shopmoderno.ru -v
+    depends_on:
+      - nginx
