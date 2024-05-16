@@ -33,8 +33,8 @@ services:
     image: nginx:stable-alpine
     restart: always
     ports:
-      - "8100:88"
-      - "8443:443"
+      - "80:80"
+      - "443:443"
     volumes:
       - static:/app/static
       - media:/app/media
