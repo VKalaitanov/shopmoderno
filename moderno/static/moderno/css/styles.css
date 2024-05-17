@@ -68,7 +68,7 @@ form p select {
     min-width: 220px; 
     width: 321px;
     max-width: 321px;
-    height: 30px;
+    height: 25px;
 }
 
 form hr {margin: 10px 0px;}
@@ -343,6 +343,7 @@ footer {
     max-width: 107px;
     min-height: 25px;
     height: 25px;
+    max-height: 25px;
     flex-wrap: wrap;
     text-align-last: center;
 }
@@ -393,6 +394,7 @@ input[type="file"] {display: none;}
     max-width: 321px;
     min-height: 25px;
     height: 25px;
+    max-height: 25px;
 }
 
 .profile form button {
