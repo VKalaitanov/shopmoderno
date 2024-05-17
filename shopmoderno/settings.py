@@ -69,6 +69,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'moderno.context_processors.get_info_context',
+                'social_django.context_processors.backends',  # для авторизации в вконтакте
+                'social_django.context_processors.login_redirect',  # для авторизации в вконтакте
             ],
         },
     },
@@ -203,6 +205,8 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
 )
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 # DEFAULT_USER_IMAGE = MEDIA_URL + 'users/default.png'
 # DEFAULT_PRODUCT_IMAGE = MEDIA_URL + 'images/default.jpg'
