@@ -70,7 +70,7 @@ class RegisterUserView(FormView):
             f'Активация email на сайте {current_site}, если вы не регистрировались \n'
             f'на нашем сайте, игнорируйте это сообщение. \n'
             f'Иначе пожалуйста, перейдите по следующей ссылке, чтобы подтвердить \n'
-            f'свой адрес электронной почты: http://{current_site}{activation_url}'
+            f'свой адрес электронной почты: https://{current_site}{activation_url}'
         )
 
         send_mail(
