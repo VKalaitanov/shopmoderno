@@ -40,6 +40,7 @@ form h1 {
 
 form p {
     height: 25px;
+    max-height: 25px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
@@ -64,8 +65,10 @@ form p input, form p textarea {
 }
 
 form p select {
-    min-height: 220px;
+    min-width: 220px; 
     width: 321px;
+    max-width: 321px;
+    height: 30px;
 }
 
 form hr {margin: 10px 0px;}
@@ -337,6 +340,9 @@ footer {
 #id_date_birth_year, #id_date_birth_month, #id_date_birth_day {
     min-width: 60px;
     width: 107px;
+    max-width: 107px;
+    min-height: 25px;
+    height: 25px;
     flex-wrap: wrap;
     text-align-last: center;
 }
@@ -383,6 +389,10 @@ input[type="file"] {display: none;}
 #id_gender {
     flex: 2;
     text-align-last: center;
+    width: 321px;
+    max-width: 321px;
+    min-height: 25px;
+    height: 25px;
 }
 
 .profile form button {
