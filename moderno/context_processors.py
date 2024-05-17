@@ -2,6 +2,7 @@ from django.core.cache import cache
 
 from cart.models import Cart
 from like.models import Like
+from shopmoderno import settings
 from .models import Category, Product
 
 
@@ -22,6 +23,7 @@ def get_info_context(request):
         'cart_items': cart_items,
         'cart_items_quantity': cart_items_quantity,
         'quantity_likes': quantity_likes,
+        'RECAPTCHA_KEY': settings.RECAPTCHA_KEY,
     }
 
     # cache.set('info_context_data', data, timeout=2)  # Кэшируем на 1 час
