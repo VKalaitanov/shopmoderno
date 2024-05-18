@@ -62,32 +62,6 @@ services:
     volumes:
       - ./docker/redis/data:/data
 
-  celery-worker:
-    build: .
-    container_name: celery-worker
-    restart: always
-    env_file:
-      - docker/env/.env.prod
-    volumes:
-      - ./:/app
-      - media:/app/media
-    command: celery -A backend worker --loglevel=info --logfile=./docker/logs/celery-worker.log
-    depends_on:
-      - redis
-
-  celery-beat:
-    build: .
-    container_name: celery-beat
-    env_file:
-      - docker/env/.env.prod
-    depends_on:
-      - redis
-    command: celery -A backend beat --loglevel=info --logfile=./docker/logs/celery-beat.log
-    volumes:
-      - media:/app/media
-      - ./:/app
-
-
   certbot:
       image: certbot/certbot
       container_name: certbot
