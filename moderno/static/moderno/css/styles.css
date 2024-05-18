@@ -53,7 +53,7 @@ form p label {
     text-align: start;
     margin: 0 !important;
     color: #fff;
-    white-space: wrap;
+    white-space: nowrap;
 }
 
 form p input, form p textarea {
@@ -1118,23 +1118,33 @@ input[type="file"] {display: none;}
     object-fit: cover;
 }
 
+/* .feedback-form {height: auto;} */
+
 .feedback-form form {
     display: flex;
     flex-direction: column;
     width: 300px;
+    height: 280px;
 }
 
 .feedback-form form .errorlist {color: #ff0000;}
+
+.feedback-form form p {height: auto;}
+
+.feedback-form .form-button {
+    width: 100%;
+    position: absolute;
+    bottom: 15px;
+}
+
+.feedback-form .form-button button {margin: 10px 0 0 0;}
+.feedback-form .form-button button:hover {box-shadow: none !important;}
 
 .feedback-form form p textarea {
     resize: none;
     height: 100px;
     box-sizing: border-box;
 }
-
-.feedback-form form p {height: auto;}
-.form-button, .form-button button {margin: 10px 0 0 0;}
-.form-button button:hover {box-shadow: none !important;}
 
 .message {
     position: absolute;
