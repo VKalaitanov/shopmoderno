@@ -331,12 +331,13 @@ footer {
     height: auto;
 }
 
-.profile-image > img {
+.profile-image img {
     width: 150px;
     height: 150px;
     background-color: rgba(0, 0, 0, 0.4);
     border-radius: 5px;
     margin-bottom: 20px;
+    object-fit: cover;
 }
 
 #id_date_birth_year, #id_date_birth_month, #id_date_birth_day {
@@ -721,7 +722,7 @@ input[type="file"] {display: none;}
     height: 100%;
 }
 
-/* ----------------------Карточка с  продуктом-------------------- */
+/* ----------------------Страница с  продуктом-------------------- */
 
 .product-review-block {
     width: 100%;
@@ -872,11 +873,11 @@ input[type="file"] {display: none;}
     margin: 20px 0 0 0;
 }
 
-.review-form  form button {
-    width: 100px;
-    
+.review-form  form button {width: 100px; }
+.review-form  form select {
+    border-radius: 3px;
+    color: #000;
 }
-
 .form-area {
     height: 150px;
     margin-bottom: 10px;
@@ -1117,8 +1118,6 @@ input[type="file"] {display: none;}
     height: 100%;
     object-fit: cover;
 }
-
-/* .feedback-form {height: auto;} */
 
 .feedback-form form {
     display: flex;
