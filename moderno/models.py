@@ -33,7 +33,7 @@ class Product(models.Model):
         ])
 
     image = models.ImageField(
-        'Фото',
+        'Фото товара',
         upload_to=product_image_directory_path,
         default='images/default.jpg',
         blank=True
@@ -103,16 +103,26 @@ class Size(models.Model):
 
 
 class ProductSize(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='sizes')
-    size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name='sizes')
-    quantity = models.PositiveIntegerField(default=1)
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='sizes',
+        verbose_name='Товар'
+    )
+    size = models.ForeignKey(
+        Size,
+        on_delete=models.CASCADE,
+        related_name='sizes',
+        verbose_name='Размер'
+    )
+    quantity = models.PositiveIntegerField('Количество', default=1)
 
     class Meta:
         verbose_name = 'Размер для товара'
         verbose_name_plural = 'Размеры для товаров'
 
     def __str__(self):
-        return f'{self.size.name}'
+        return f'{self.product}, размер:{self.size.name}, количество:{self.quantity}'
 
 
 class ProductImage(models.Model):

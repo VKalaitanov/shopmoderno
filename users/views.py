@@ -76,7 +76,7 @@ class RegisterUserView(FormView):
         send_mail(
             'Подтвердите свой электронный адрес',
             message,
-            'kalaitanov93@yandex.ru',
+            'kalaytanov93@gmail.com',
             [user.email],
             fail_silently=False,
         )
