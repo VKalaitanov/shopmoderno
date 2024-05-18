@@ -7,9 +7,10 @@ from django.views.generic.edit import FormMixin, CreateView
 
 from cart.forms import AddToCartForm
 from .forms import ReviewForm, FeedbackCreateForm
-from .mail import send_contact_email_message
+from .email import send_contact_email_message
 from .models import Product, ProductImage, Feedback
 from .utils import DataMixin, get_client_ip
+from .tasks import send_contact_email_message_task
 
 
 class HomePage(DataMixin, ListView):
@@ -111,15 +112,26 @@ class FeedbackCreateView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('moderno:contacts')
 
     def form_valid(self, form):
+        # if form.is_valid():
+        #     feedback = form.save(commit=False)
+        #     feedback.ip_address = get_client_ip(self.request)
+        #     if self.request.user.is_authenticated:
+        #         feedback.user = self.request.user
+        #
+        #     send_contact_email_message(
+        #         feedback.subject, feedback.email, feedback.content,
+        #         feedback.ip_address, feedback.user_id
+        #     )
+        # return super().form_valid(form)
         if form.is_valid():
             feedback = form.save(commit=False)
             feedback.ip_address = get_client_ip(self.request)
             if self.request.user.is_authenticated:
                 feedback.user = self.request.user
 
-            send_contact_email_message(
-                feedback.subject, feedback.email, feedback.content,
-                feedback.ip_address, feedback.user_id
+            send_contact_email_message_task.delay(
+                feedback.subject, feedback.email,
+                feedback.content, feedback.ip_address, feedback.user_id
             )
         return super().form_valid(form)
 

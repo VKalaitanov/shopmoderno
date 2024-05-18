@@ -1,6 +1,6 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.mail import EmailMessage
-from django.conf import settings
 from django.template.loader import render_to_string
 
 
@@ -16,5 +16,5 @@ def send_contact_email_message(subject, email, content, ip, user_id):
         'ip': ip,
         'user': user,
     })
-    email = EmailMessage(subject, message, settings.SERVER_EMAIL, (settings.EMAIL_ADMIN, ))
+    email = EmailMessage(subject, message, settings.SERVER_EMAIL, (settings.EMAIL_ADMIN,))
     email.send(fail_silently=False)

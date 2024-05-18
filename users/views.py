@@ -2,15 +2,11 @@ from django.contrib.auth import logout, get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.views import LoginView, PasswordChangeView
-from django.contrib.sites.models import Site
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.http import urlsafe_base64_decode
 from django.views import View
 from django.views.generic import UpdateView, FormView, TemplateView
 
@@ -19,6 +15,7 @@ from .forms import (
     LoginUserForm, RegisterUserForm,
     ProfileUserForm, UserPasswordChangeForm
 )
+from .tasks import send_activate_email_message_task
 
 
 class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
@@ -52,35 +49,40 @@ class RegisterUserView(FormView):
     success_url = reverse_lazy('users:email_confirmation_sent')
 
     def form_valid(self, form):
+        # user = form.save(commit=False)
+        # user.is_active = False  # Пользователь неактивен до подтверждения email
+        # user.save()
+        #
+        # # Отправка на email ссылку для активации
+        # current_site = get_current_site(self.request).domain
+        # token = account_activation_token.make_token(user)
+        # uid = urlsafe_base64_encode(force_bytes(user.pk))
+        #
+        # activation_url = reverse_lazy(
+        #     'users:confirm_email',
+        #     kwargs={'uidb64': uid, 'token': token}
+        # )
+        #
+        # message = (
+        #     f'Активация email на сайте {current_site}, если вы не регистрировались \n'
+        #     f'на нашем сайте, игнорируйте это сообщение. \n'
+        #     f'Иначе пожалуйста, перейдите по следующей ссылке, чтобы подтвердить \n'
+        #     f'свой адрес электронной почты: https://{current_site}{activation_url}'
+        # )
+        #
+        # send_mail(
+        #     'Подтвердите свой электронный адрес',
+        #     message,
+        #     'kalaytanov93@gmail.com',
+        #     [user.email],
+        #     fail_silently=False,
+        # )
+        #
+        # return super().form_valid(form)
         user = form.save(commit=False)
-        user.is_active = False  # Пользователь неактивен до подтверждения email
+        user.is_active = False
         user.save()
-
-        # Отправка на email ссылку для активации
-        current_site = get_current_site(self.request).domain
-        token = account_activation_token.make_token(user)
-        uid = urlsafe_base64_encode(force_bytes(user.pk))
-
-        activation_url = reverse_lazy(
-            'users:confirm_email',
-            kwargs={'uidb64': uid, 'token': token}
-        )
-
-        message = (
-            f'Активация email на сайте {current_site}, если вы не регистрировались \n'
-            f'на нашем сайте, игнорируйте это сообщение. \n'
-            f'Иначе пожалуйста, перейдите по следующей ссылке, чтобы подтвердить \n'
-            f'свой адрес электронной почты: https://{current_site}{activation_url}'
-        )
-
-        send_mail(
-            'Подтвердите свой электронный адрес',
-            message,
-            'kalaytanov93@gmail.com',
-            [user.email],
-            fail_silently=False,
-        )
-
+        send_activate_email_message_task.delay(user.id)
         return super().form_valid(form)
 
 
