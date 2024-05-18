@@ -53,7 +53,7 @@ form p label {
     text-align: start;
     margin: 0 !important;
     color: #fff;
-    white-space: nowrap;
+    white-space: wrap;
 }
 
 form p input, form p textarea {
@@ -69,6 +69,8 @@ form p select {
     width: 321px;
     max-width: 321px;
     height: 25px;
+    border-radius: 3px;
+    color: #000;
 }
 
 form hr {margin: 10px 0px;}
