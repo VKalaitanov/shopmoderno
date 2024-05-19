@@ -11,17 +11,6 @@ $(document).ready(function() {
         $(".menu-block").slideToggle(500);
     });
 
-//    $(window).scroll(function() { <!--добавляет класс fixed к шапке сайта и убирает-->
-////        var mainScroll = $(".main").height() / 2
-//        var mainScroll = 50
-//        if($(this).scrollTop() > mainScroll){
-//            $(".header").removeClass("fixed");
-//        }
-//        else if ($(this).scrollTop() < mainScroll){
-//            $(".header").addClass("fixed");
-//        }
-//    });
-
 // функция для скрытия/появления шапки при скролле
     var lastScrollTop = 0;
     $(window).scroll(function() {
@@ -130,8 +119,58 @@ $(document).ready(function() {
         }
     });
 });
-
+// для рекапчи
 function onSubmit(token) {
-    console.log(token)
     document.getElementById("demo-form").submit();
 }
+
+
+
+// Функция для получения CSRF токена
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Проверяем, соответствует ли cookie началу "name="
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.like-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            fetch(`/like/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                const icon = this.querySelector('i');
+                    if (data.liked) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        icon.style.color = 'red';
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        icon.style.color = '';
+                    }
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+        });
+    });
+});

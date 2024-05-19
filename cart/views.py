@@ -45,23 +45,6 @@ class CartView(LoginRequiredMixin, DataMixin, ListView):
         return self.get_mixin_context(context)
 
 
-# @login_required
-# def cart_add(request, product_id):
-#     user = request.user
-#     current_page = request.META.get('HTTP_REFERER')
-#     product = Product.published.get(id=product_id)
-#     carts = Cart.objects.filter(user=user, product=product)
-#     quantity = int(request.POST.get('quantity', 1))
-#
-#     if not carts.exists():
-#         Cart.objects.create(user=user, product=product, quantity=quantity)
-#         return HttpResponseRedirect(current_page)
-#     cart = carts.first()
-#     cart.quantity += quantity
-#     cart.save()
-#     return HttpResponseRedirect(current_page)
-
-
 @login_required
 def cart_add(request, product_id):
     current_page = request.META.get('HTTP_REFERER')
@@ -81,21 +64,6 @@ def cart_add(request, product_id):
                 error_message = 'Товар с выбранным размером недоступен или количество товара слишком мало.'
                 request.session['error_message'] = error_message
     return HttpResponseRedirect(current_page)
-
-
-# Для уменьшения количества товара в корзине
-# def cart_remove(request, product_id):
-#     user = request.user
-#     current_page = request.META.get('HTTP_REFERER')
-#     product = Product.published.get(id=product_id)
-#     carts = Cart.objects.filter(user=user, product=product)
-#
-#     cart = carts.first()
-#     cart.quantity -= 1
-#     if cart.quantity == 0:
-#         return HttpResponseRedirect(current_page)
-#     cart.save()
-#     return HttpResponseRedirect(current_page)
 
 
 def cart_delete(request, id):

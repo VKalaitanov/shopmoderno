@@ -24,23 +24,21 @@ class LikeView(LoginRequiredMixin, DataMixin, ListView):
 
 @login_required
 def like_add(request, product_id):
-    # user = request.user
-    # current_page = request.META.get('HTTP_REFERER')
-    # product = Product.published.get(id=product_id)
-    # likes = Like.objects.filter(user=user, product=product)
-    #
-    # if not likes.exists():
-    #     Like.objects.create(user=user, product=product, like=True)
-    #     return HttpResponseRedirect(current_page)
-    # like = likes.first()
-    # like.delete()
+    print(f'Получен запрос для продукта ID: {product_id}')  # Отладочное сообщение
     product = get_object_or_404(Product, id=product_id)
     like, created = Like.objects.get_or_create(user=request.user, product=product)
 
     if not created:
+        print('Like уже существует, удаляем его.')  # Отладочное сообщение
         like.delete()
+        liked = False
+    else:
+        print('Создаем новый Like.')  # Отладочное сообщение
+        liked = True
 
-    return redirect(request.META.get('HTTP_REFERER'))
+    print(f'Ответ: liked = {liked}')  # Отладочное сообщение
+    return JsonResponse({'liked': liked})
+    # return redirect(request.META.get('HTTP_REFERER'))
     # return HttpResponseRedirect(current_page)
 
 

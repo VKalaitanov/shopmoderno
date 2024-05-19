@@ -25,8 +25,12 @@ class Like(models.Model):
 
     class Meta:
         ordering = ('-created_timestamp',)
+        unique_together = ('user', 'product')
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранные товары'
 
     def __str__(self):
         return f'Избранное для: {self.user.username} | Продукт: {self.product.name}'
+
+
+get_user_model().add_to_class('favorites', models.ManyToManyField(Product, through=Like, related_name='liked_by'))

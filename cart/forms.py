@@ -19,3 +19,5 @@ class AddToCartForm(forms.ModelForm):
     class Meta:
         model = ProductSize
         fields = ('quantity', 'size')
+
+

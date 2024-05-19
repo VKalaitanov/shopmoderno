@@ -582,7 +582,8 @@ input[type="file"] {display: none;}
 
 .product-discount span {
     z-index: 5;
-    color: #ff0000;
+    color: #000000;
+    text-shadow: 1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
     position: absolute;
     font-size: 22px;
     font-weight: 500;
@@ -613,18 +614,22 @@ input[type="file"] {display: none;}
 }
 .card:hover .poster img {transform: scale(1.1);}
 .card:hover .product-discount span {transform: scale(1.1);}
+.card:hover .like-button i {transform: scale(1.1);}
 
-.poster > a > img {
+.card .like-block  {
     z-index: 3;
     position: absolute;
-    left: 84%;
+    right: 10px;
     top: 10px;
-    width: 30px;
-    height: 30px;
-    filter: drop-shadow(0px 0px 2px rgb(255, 255, 255));
 }
 
-#active-like {filter: drop-shadow(1px 2px 3px red);}
+.like-button i {
+    font-size: 30px;
+    color: #000;
+    transition: all 0.3s linear;
+}
+
+.like-button i:hover {color: red;}
 
 .details {
     position: absolute;
@@ -1079,16 +1084,12 @@ input[type="file"] {display: none;}
     margin-right: 5px;
 }
 
-
-
 .contacts-logo span {
     position: relative;
     top: 10px;
     font-size: 30px;
     align-self: flex-end;
-
 }
-
 
 .contacts-map img {
     object-fit: cover;
@@ -1119,14 +1120,18 @@ input[type="file"] {display: none;}
     object-fit: cover;
 }
 
+
 .feedback-form form {
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: 280px;
+    height: 320px;
 }
 
-.feedback-form form .errorlist {color: #ff0000;}
+.feedback-form form .errorlist {
+    color: #ff0000;
+
+}
 
 .feedback-form form p {height: auto;}
 
@@ -1155,4 +1160,6 @@ input[type="file"] {display: none;}
     border: 1px solid black;
     padding: 20px 30px;
 }
+
+
 

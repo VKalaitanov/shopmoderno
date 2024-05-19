@@ -10,6 +10,15 @@
         <div class="product-discount">
             <span>{{ product.discount }}%</span>
         </div>
+        <div class="like-block">
+            <a class="like-button" data-product-id="{{ product.id }}">
+                {% if product in request.user.favorites.all %}
+                    <i class="fas fa-heart" style="color: red;"></i>
+                {% else %}
+                    <i class="far fa-heart"></i>
+                {% endif %}
+            </a>
+        </div>
         <div class="poster">
             <a href="{% url 'like:like_add' product.id %}">
                 <img id="active-like" src="{% static 'moderno/images/icon-heart.png' %}" title="{{ product.name }}">
