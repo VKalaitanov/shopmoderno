@@ -612,6 +612,7 @@ input[type="file"] {display: none;}
     object-fit: cover;
     transition: .4s linear;
 }
+
 .card:hover .poster img {transform: scale(1.1);}
 .card:hover .product-discount span {transform: scale(1.1);}
 .card:hover .like-button i {transform: scale(1.1);}
