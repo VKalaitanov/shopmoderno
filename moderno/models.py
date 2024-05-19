@@ -173,7 +173,7 @@ class Review(models.Model):
         related_name='reviews', verbose_name='Товар'
     )
 
-    review = models.TextField('Отзыв', max_length=1000, blank=True, null=True)
+    review = models.TextField('Отзыв', max_length=1000)
     time_create = models.DateTimeField('Дата добавления', auto_now_add=True)
 
     rating = models.IntegerField(
