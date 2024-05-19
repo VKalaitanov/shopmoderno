@@ -16,8 +16,8 @@ class ReviewForm(forms.ModelForm):
         review = self.cleaned_data['review']
         if len(review) > 1000:
             raise ValidationError('Длина превышает 1000 символов')
-
-        return review
+        if review:
+            return review
 
     class Meta:
         model = Review
