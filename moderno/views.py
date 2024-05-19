@@ -55,6 +55,7 @@ class ShowProduct(DataMixin, FormMixin, DetailView):
         return reverse_lazy('moderno:product', kwargs={'product_slug': product_slug})
 
     def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
         form = self.get_form()
         if form.is_valid():
             return self.form_valid(form)
@@ -63,7 +64,7 @@ class ShowProduct(DataMixin, FormMixin, DetailView):
     def form_valid(self, form):
         self.review = form.save(commit=False)
         self.review.user = self.request.user
-        self.review.product = self.get_object()
+        self.review.product = self.object
         self.review.save()
         return super().form_valid(form)
 

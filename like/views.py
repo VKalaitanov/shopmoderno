@@ -38,7 +38,6 @@ def like_add(request, product_id):
 
     print(f'Ответ: liked = {liked}')  # Отладочное сообщение
     return JsonResponse({'liked': liked})
-    # return redirect(request.META.get('HTTP_REFERER'))
-    # return HttpResponseRedirect(current_page)
+
 
 
