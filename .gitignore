@@ -125,4 +125,4 @@ dmypy.json
 .env.test
 .env.*.local
 
-migrations/*
+migrations/
