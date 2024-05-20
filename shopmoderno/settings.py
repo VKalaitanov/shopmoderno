@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'cart.apps.CartConfig',
     'like.apps.LikeConfig',
-    'debug_toolbar',
+    # 'debug_toolbar',
     'social_django',
 ]
 
@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'users.middleware.RedirectIfAuthenticatedMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'shopmoderno.urls'
