@@ -12,7 +12,7 @@
         <div class="like-block">
             {% if user.is_authenticated %}
             <a class="like-button" data-product-id="{{ product.id }}">
-                {% if product in request.user.likes_user.all %}
+                {% if product in request.user.favorites.all %}
                 <i class="fas fa-heart" style="color: red;"></i>
                 {% else %}
                 <i class="far fa-heart"></i>
