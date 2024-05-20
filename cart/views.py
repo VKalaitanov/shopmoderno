@@ -3,6 +3,7 @@ from decimal import Decimal
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
 
 from moderno.models import Product, ProductSize
@@ -48,25 +49,40 @@ class CartView(LoginRequiredMixin, DataMixin, ListView):
 @login_required
 def cart_add(request, product_id):
     current_page = request.META.get('HTTP_REFERER')
-    # quantity = int(request.POST.get('quantity', 1))
     if request.method == 'POST':
-        form = AddToCartForm(request.POST)
+        form = AddToCartForm(request.POST, product_id=product_id)
         if form.is_valid():
             user = request.user
-            product = Product.published.get(id=product_id)
+            product = get_object_or_404(Product, id=product_id)
             quantity = form.cleaned_data['quantity']
             size = form.cleaned_data['size']
             product_size = ProductSize.objects.filter(product=product, size=size).first()
             if product_size and product_size.quantity >= quantity:
-                Cart.objects.create(user=user, product=product, quantity=quantity, size=size)
+                Cart.objects.create(user=user, product=product, quantity=quantity, size=size.name)
+                product_size.quantity -= quantity
+                product_size.save()
                 return HttpResponseRedirect(current_page)
             else:
-                error_message = 'Товар с выбранным размером недоступен или количество товара слишком мало.'
+                error_message = (
+                    'Товар с выбранным размером '
+                    'недоступен или количество товара слишком мало.'
+                )
                 request.session['error_message'] = error_message
+    else:
+        form = AddToCartForm(product_id=product_id)
     return HttpResponseRedirect(current_page)
 
 
 def cart_delete(request, id):
-    cart = Cart.objects.get(id=id)
-    cart.delete()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    cart_item = get_object_or_404(Cart, id=id)
+    product_size = get_object_or_404(
+        ProductSize,
+        product=cart_item.product,
+        size__name=cart_item.size
+    )
+
+    product_size.quantity += cart_item.quantity
+    product_size.save()
+    cart_item.delete()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

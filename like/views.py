@@ -24,19 +24,15 @@ class LikeView(LoginRequiredMixin, DataMixin, ListView):
 
 @login_required
 def like_add(request, product_id):
-    print(f'Получен запрос для продукта ID: {product_id}')  # Отладочное сообщение
     product = get_object_or_404(Product, id=product_id)
     like, created = Like.objects.get_or_create(user=request.user, product=product)
 
     if not created:
-        print('Like уже существует, удаляем его.')  # Отладочное сообщение
         like.delete()
         liked = False
     else:
-        print('Создаем новый Like.')  # Отладочное сообщение
         liked = True
 
-    print(f'Ответ: liked = {liked}')  # Отладочное сообщение
     return JsonResponse({'liked': liked})
 
 

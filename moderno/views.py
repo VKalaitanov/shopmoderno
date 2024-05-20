@@ -48,7 +48,6 @@ class ShowProduct(DataMixin, FormMixin, DetailView):
     slug_url_kwarg = 'product_slug'
     context_object_name = 'product'
     form_class = ReviewForm
-    cart_product_form = AddToCartForm()
 
     def get_success_url(self, **kwargs):
         product_slug = self.get_object().slug
@@ -84,12 +83,12 @@ class ShowProduct(DataMixin, FormMixin, DetailView):
             .order_by('-time_create')
             .select_related('user', 'product')
         )
-
+        cart_product_form = AddToCartForm(product_id=product.id)
         return self.get_mixin_context(
             context,
             title=context['product'].name,
             images=images,
-            cart_product_form=self.cart_product_form,
+            cart_product_form=cart_product_form,
             error_message=error_message,
             reviews=reviews,
         )

@@ -19,13 +19,16 @@ class Cart(models.Model):
         related_name='cart'
     )
 
-    size = models.CharField(max_length=5, blank=True)
+    size = models.CharField('Размер', max_length=4)
 
-    quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
+    quantity = models.PositiveIntegerField(
+        'Количество',
+        default=0
+    )
 
     created_timestamp = models.DateTimeField(
+        'Дата добавления товара',
         auto_now_add=True,
-        verbose_name='Дата добавления товара'
     )
 
     class Meta:
@@ -38,5 +41,3 @@ class Cart(models.Model):
 
     def sum(self):
         return self.quantity * self.product.price
-
-

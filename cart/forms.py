@@ -11,7 +11,7 @@ class AddToCartForm(forms.ModelForm):
     )
 
     size = forms.ModelChoiceField(
-        queryset=Size.objects.all(),
+        queryset=Size.objects.none(),
         empty_label='',
         label='Размер',
     )
@@ -19,5 +19,13 @@ class AddToCartForm(forms.ModelForm):
     class Meta:
         model = ProductSize
         fields = ('quantity', 'size')
+
+    def __init__(self, *args, **kwargs):
+        product_id = kwargs.pop('product_id', None)
+        super().__init__(*args, **kwargs)
+        if product_id:
+            self.fields['size'].queryset = Size.objects.filter(
+                sizes__product_id=product_id, sizes__quantity__gt=0
+            ).distinct()
 
 

@@ -27,6 +27,7 @@ class FeedbackCreateForm(forms.ModelForm):
     """
     Форма отправки обратной связи
     """
+
     # subject = forms.CharField(label='',max_length=100, widget=forms.Textarea(attrs={'placeholder': 'form-input'}))
 
     class Meta:
@@ -42,5 +43,3 @@ class FeedbackCreateForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'placeholder': 'Электронный адрес (email)'}),
             'content': forms.Textarea(attrs={'placeholder': 'Содержимое письма'}),
         }
-
-

@@ -178,9 +178,9 @@ class Review(models.Model):
 
     rating = models.IntegerField(
         'Оценка',
-        blank=True,
+        # blank=True,
         default=RatingChoice.five,
-        null=True,
+        # null=True,
         choices=RatingChoice.choices
     )
 

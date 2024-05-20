@@ -33,4 +33,4 @@ class Like(models.Model):
         return f'Избранное для: {self.user.username} | Продукт: {self.product.name}'
 
 
-get_user_model().add_to_class('favorites', models.ManyToManyField(Product, through=Like, related_name='liked_by'))
+get_user_model().add_to_class('likes_user', models.ManyToManyField(Product, through=Like, related_name='liked_by'))

@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'cart.apps.CartConfig',
     'like.apps.LikeConfig',
-    # 'debug_toolbar',
+    'debug_toolbar',
     'social_django',
 ]
 
@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'users.middleware.RedirectIfAuthenticatedMiddleware',
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'shopmoderno.urls'
@@ -88,27 +88,27 @@ WSGI_APPLICATION = 'shopmoderno.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('POSTGRES_DB'),
-        'USER': env('POSTGRES_USER'),
-        'PASSWORD': env('POSTGRES_PASSWORD'),
-        'HOST': env('POSTGRES_HOST'),
-        'PORT': env('POSTGRES_PORT'),
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': env('POSTGRES_DB'),
 #         'USER': env('POSTGRES_USER'),
 #         'PASSWORD': env('POSTGRES_PASSWORD'),
-#         'HOST': 'localhost',  # env('POSTGRES_HOST'),
-#         'PORT': 5433,  # env('POSTGRES_PORT'),
+#         'HOST': env('POSTGRES_HOST'),
+#         'PORT': env('POSTGRES_PORT'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': 'localhost',  # env('POSTGRES_HOST'),
+        'PORT': 5433,  # env('POSTGRES_PORT'),
+    }
+}
 
 # CACHES = {
 #     'default': {
