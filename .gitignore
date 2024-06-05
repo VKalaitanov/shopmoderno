@@ -126,5 +126,5 @@ dmypy.json
 .env.*.local
 
 migrations/
-shopmoderno/settings.py
-shopmoderno/urls.py
+#shopmoderno/settings.py
+#shopmoderno/urls.py
