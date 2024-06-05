@@ -128,4 +128,3 @@ dmypy.json
 migrations/
 shopmoderno/settings.py
 shopmoderno/urls.py
-docker/
