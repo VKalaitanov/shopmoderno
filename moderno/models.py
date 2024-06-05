@@ -140,8 +140,17 @@ class ProductImage(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField('Название категории', max_length=100, db_index=True)
-    slug = models.SlugField(max_length=150, unique=True, db_index=True)
+    name = models.CharField(
+        'Название категории',
+        max_length=100,
+        db_index=True
+    )
+    slug = models.SlugField(
+        'Слаг',
+        max_length=150,
+        unique=True,
+        db_index=True
+    )
 
     class Meta:
         ordering = ('name',)
