@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="order-container">
+    <h1>Оформление заказа</h1>
+    <div class="order-block">
+        <div class="order-info-block">
+            <div class="order-info">
+                <h3>Ваш заказ</h3>
+                <ul>
+                    {% for item in cart_items %}
+                    <li>
+                        <img src="{{ item.product.image.url }}" alt="">
+                        <span>{{ item.product.name }}</span>
+                        <span>Размер:({{ item.size }})</span>
+                        <span>{{ item.quantity }} шт.</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <hr>
+                <p>Общая стоимость: <b>{{ total_price|format_price }}</b> р.</p>
+            </div>
+        </div>
+        <div class="order-form">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Оформить заказ</button>
+        </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="order-success">
+    <h2>Заказ успешно оформлен</h2>
+    <p>Ваш заказ номер {{ order.id }} успешно оформлен. Спасибо за покупку!</p>
+    <a href="{% url 'moderno:home' %}">Вернуться на главную</a>
+</div>
+{% endblock %}

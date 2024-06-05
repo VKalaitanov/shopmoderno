@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block content %}
 
@@ -46,8 +47,8 @@
             </div>
 
             <div class="product-price">
-                <span>{{ product.discount_price }}</span>
-                <s class="muted">{{ product.price }}</s>
+                <span>{{ product.discount_price|format_price }}</span>
+                <s class="muted">{{ product.price|format_price }}</s>
             </div>
 
             <div class="tags">

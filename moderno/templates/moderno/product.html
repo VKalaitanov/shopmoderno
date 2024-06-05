@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load custom_filters %}
 {% block content %}
 <div class="product-review-block">
     <div class="product-block">
@@ -37,11 +37,11 @@
 
 
         <div class="product-info">
-            <h2><b>{{product.name}}</b></h2>
+            <h2><b>{{ product.name }}</b></h2>
             <div class="product-info-price">
-                <span>Цена: <s class="muted">{{product.price}}</s></span>
-                <span>Цена со скидкой: <b class="text-success">{{product.discount_price}}</b></span>
-                <span>Скидка: <b class="text-danger">{{product.discount}}%</b></span>
+                <span>Цена: <s class="muted">{{ product.price|format_price }}</s></span>
+                <span>Цена со скидкой: <b class="text-success">{{ product.discount_price|format_price }}</b></span>
+                <span>Скидка: <b class="text-danger">{{ product.discount }}%</b></span>
             </div>
 
             <div class="product-description">
@@ -86,11 +86,11 @@
         </div>
         {% else %}
         <div class="review-form">
-            <form>
+            <div class="review-auth">
                 <p>Для отправки отзыва вам необходимо
                     <a href="{% url 'users:login' %}" class="fw-bold">авторизоваться</a>
                 </p>
-            </form>
+            </div>
         </div>
         {% endif %}
         <p class="reviews-count">Отзывы: ({{ product.reviews.all.count }})</p>

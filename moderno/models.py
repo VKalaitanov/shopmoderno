@@ -42,8 +42,8 @@ class Product(models.Model):
     description = models.TextField('Описание', blank=True)
     time_create = models.DateTimeField('Время создания', auto_now_add=True)
     time_update = models.DateTimeField('Время изменения', auto_now=True)
-    price = models.FloatField('Цена', default=0)
-    discount_price = models.FloatField('Цена со скидкой', blank=True, default=0, null=True)
+    price = models.IntegerField('Цена', default=0)
+    discount_price = models.IntegerField('Цена со скидкой', blank=True, default=0, null=True)
     available = models.BooleanField('Наличие', default=True)
 
     category = models.ForeignKey(

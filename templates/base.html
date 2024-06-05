@@ -46,8 +46,8 @@
             </a>
             <a href="{% url 'cart:cart' %}">
                 <img class="icon" src="{% static 'moderno/images/icon-shop.png' %}" alt="">
-                {% if cart_items %}
-                {{ cart_items }}
+                {% if cart_items_quantity %}
+                {{ cart_items_quantity }}
                 {% endif %}
             </a>
         </div>

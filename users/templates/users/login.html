@@ -19,28 +19,35 @@
             </div>
             <div class="text-danger" id="recaptchaError"></div>
             <hr>
-            <div class="social">
-                <ul>
+            <div class="social social-auth">
+                <span class="text-white">Авторизоваться с помощью:</span>
+                <ul class="mt-2">
+                    {% comment %}
                     <li class="item">
                         <a href="tg://resolve?domain=v_kalaytanov" aria-placeholder="Instagram">
                             <i class="fa-brands fa-instagram social-icon" title="Instagram"></i>
                         </a>
                     </li>
+                    {% endcomment %}
+                    {% comment %}
                     <li class="item">
                         <a href="{% url 'social:begin' 'vk-oauth2' %}" aria-placeholder="VK">
                             <i class="fa-brands fa-vk social-icon" title="VK"></i>
                         </a>
                     </li>
+                    {% endcomment %}
                     <li class="item">
                         <a href="{% url 'social:begin' 'github' %}" aria-placeholder="Github">
                             <i class="fa-brands fa-github social-icon" title="Github"></i>
                         </a>
                     </li>
+                    {% comment %}
                     <li class="item">
                         <a href="tg://resolve?domain=v_kalaytanov" aria-placeholder="Telegram">
                             <i class="fa-brands fa-telegram social-icon" title="Telegram"></i>
                         </a>
                     </li>
+                    {% endcomment %}
                 </ul>
             </div>
             <hr>

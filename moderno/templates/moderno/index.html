@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load custom_filters %}
 
 {% block content %}
 <div class="products-all">
@@ -47,8 +47,8 @@
                 {% endif %}
             </div>
             <div class="product-price">
-                <span>{{ product.discount_price }}</span>
-                <s class="muted">{{ product.price}}</s>
+                <span>{{ product.discount_price|format_price }}</span>
+                <s class="muted">{{ product.price|format_price }}</s>
             </div>
 
             <div class="tags">
@@ -56,19 +56,19 @@
             </div>
 
             <div class="cast">
-                <h4>Наши странички:</h4>
+                <h4>Наши модели:</h4>
                 <ul>
                     <li>
-                        <img src="" alt="Marco Andrews"
-                             title="Marco Andrews">
+                        <img src="{% static 'moderno/images/emili.jpg' %}" alt="Emily Ratajkowski"
+                             title="Emily Ratajkowski">
                     </li>
                     <li>
-                        <img src="https://i.postimg.cc/8P7X7r7r/cast-12.jpg" alt="Rebecca Floyd"
-                             title="Rebecca Floyd">
+                        <img src="{% static 'moderno/images/irina.jpg' %}" alt="Irina Shayk"
+                             title="Irina Shayk">
                     </li>
                     <li>
-                        <img src="https://i.postimg.cc/2SvHwRFk/cast-13.jpg" alt="Antonio Herrera"
-                             title="Antonio Herrera">
+                        <img src="{% static 'moderno/images/stella.jpg' %}" alt="Stella Maxwell"
+                             title="Stella Maxwell">
                     </li>
                 </ul>
             </div>

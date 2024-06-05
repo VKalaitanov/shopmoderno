@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block content %}
 <div class="cart-block">
@@ -23,19 +24,10 @@
                 {{ item.size }}
             </div>
             <div class="cart-cell">
-                <p class="price">{{ item.sum }} р.</p>
+                <p class="price">{{ item.sum|format_price }} р.</p>
             </div>
             <div class="cart-cell">
                 {{ item.quantity }} шт.
-                {% comment %}
-                <a href="{% url 'cart:cart_add' product.id %}">
-                    <button class="add-remove" type="submit">+</button>
-                </a>
-
-                <a href="{% url 'cart:cart_remove' product.id %}">
-                    <button class="add-remove" type="submit">-</button>
-                </a>
-                {% endcomment %}
             </div>
             <div class="cart-cell">
                 <a href="{% url 'cart:cart_delete' item.id %}">
@@ -49,12 +41,12 @@
         <div class="final-result">
             <ul>
                 <li>Количество: <span class="total-info">{{ cart_items_quantity }}</span> шт.</li>
-                <li>Общая стоимость: <span class="total-info">{{ total_sum }}</span> руб.</li>
-                <li>Общая стоимость со скидкой: <span class="total-info">{{ total_discount_price }}</span> руб.</li>
-                <li>Скидка: <span class="total-info text-danger">{{ discount }}</span> руб.</li>
+                <li>Общая стоимость: <span class="total-info">{{ total_price|format_price }}</span> руб.</li>
+                <li>Общая стоимость со скидкой: <span class="total-info">{{ total_discount_price|format_price }}</span> руб.</li>
+                <li>Скидка: <span class="total-info text-danger">{{ discount|format_price }}</span> руб.</li>
             </ul>
             <hr>
-            <a href="">
+            <a href="{% url 'order:order_create' %}">
                 <button type="submit">Перейти к оплате</button>
             </a>
         </div>

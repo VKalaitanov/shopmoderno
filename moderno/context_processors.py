@@ -12,7 +12,7 @@ def get_info_context(request):
     #     return cached_data
     user = request.user.id
     cart = Cart.objects.select_related('user', 'product').filter(user=user)
-    cart_items = cart.count()
+    # cart_items_count = cart.count()
     cart_items_quantity = sum(item.quantity for item in cart)
 
     likes = Like.objects.select_related('user', 'product').filter(user=user)
@@ -20,7 +20,7 @@ def get_info_context(request):
 
     data = {
         'category': Category.objects.all(),
-        'cart_items': cart_items,
+        # 'cart_items_count': cart_items_count,
         'cart_items_quantity': cart_items_quantity,
         'quantity_likes': quantity_likes,
         'RECAPTCHA_KEY': settings.RECAPTCHA_KEY,
