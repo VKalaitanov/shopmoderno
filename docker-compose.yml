@@ -10,7 +10,7 @@ services:
     build:
       context: .
     ports:
-      - '8000:8000'
+      - '8001:8000'
     container_name: django
     env_file:
       - docker/env/.env.prod
