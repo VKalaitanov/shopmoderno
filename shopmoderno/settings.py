@@ -17,8 +17,8 @@ DEBUG = int(env('DEBUG', default=1))
 
 # CART_SESSION_ID = 'cart'
 
-ALLOWED_HOSTS = env('ALLOWED_HOSTS').split()
-# ALLOWED_HOSTS = ["127.0.0.1", 'localhost', 'shopmoderno.ru', 'django']
+# ALLOWED_HOSTS = env('ALLOWED_HOSTS').split()
+ALLOWED_HOSTS = ["127.0.0.1", 'localhost', 'shopmoderno.ru', 'django']
 DOMAIN = env('DOMAIN')
 
 INTERNAL_IPS = ["127.0.0.1"]
