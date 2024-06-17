@@ -10,7 +10,7 @@ services:
     build:
       context: .
     ports:
-      - '8000:8000'
+      - '8001:8000'
     container_name: django
     env_file:
       - docker/env/.env.prod
@@ -32,8 +32,8 @@ services:
     image: nginx:stable-alpine
     restart: always
     ports:
-      - "80:80"
-      - "443:443"
+      - "81:80"
+      - "444:443"
     volumes:
       - static:/app/static
       - media:/app/media
